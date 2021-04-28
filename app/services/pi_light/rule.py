@@ -3,7 +3,7 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, validator
 
-from app.services.pi_light.color import PiLightColor
+from app.services.pi_light.color import Color
 
 
 class OverlapRegion(IntEnum):
@@ -11,12 +11,12 @@ class OverlapRegion(IntEnum):
     TAIL = 2
 
 
-class PiLightRule(BaseModel):
+class Rule(BaseModel):
     # Time is in msec within 24hr day
     start_time: int = Field(0, ge=0, lt=86400000)
     stop_time: int = Field(86400000, gt=0, le=86400000)
-    start_color: PiLightColor = PiLightColor()
-    stop_color: PiLightColor = PiLightColor()
+    start_color: Color = Color()
+    stop_color: Color = Color()
 
     @validator('stop_time')
     def starttime_after_stoptime(cls, v, values, **kwargs):

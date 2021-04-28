@@ -1,14 +1,14 @@
 from unittest import TestCase
 
-from app.services.pi_light.rule import PiLightRule, OverlapRegion
+from app.services.pi_light.rule import Rule, OverlapRegion
 
 
-class TestPiLightRule(TestCase):
+class TestRule(TestCase):
     def test_within(self) -> None:
-        rule1 = PiLightRule(start_time=1, stop_time=8)
-        rule2 = PiLightRule(start_time=5, stop_time=8)
-        rule3 = PiLightRule(start_time=5, stop_time=8)
-        rule4 = PiLightRule(start_time=5, stop_time=9)
+        rule1 = Rule(start_time=1, stop_time=8)
+        rule2 = Rule(start_time=5, stop_time=8)
+        rule3 = Rule(start_time=5, stop_time=8)
+        rule4 = Rule(start_time=5, stop_time=9)
 
         self.assertTrue(rule2.within(rule1))
         self.assertTrue(rule2.within(rule3))
@@ -18,11 +18,11 @@ class TestPiLightRule(TestCase):
         self.assertFalse(rule4.within(rule1))
 
     def test_overlaps(self) -> None:
-        rule1 = PiLightRule(start_time=3, stop_time=8)
-        rule2 = PiLightRule(start_time=5, stop_time=8)
-        rule3 = PiLightRule(start_time=5, stop_time=9)
-        rule4 = PiLightRule(start_time=1, stop_time=9)
-        rule5 = PiLightRule(start_time=1, stop_time=3)
+        rule1 = Rule(start_time=3, stop_time=8)
+        rule2 = Rule(start_time=5, stop_time=8)
+        rule3 = Rule(start_time=5, stop_time=9)
+        rule4 = Rule(start_time=1, stop_time=9)
+        rule5 = Rule(start_time=1, stop_time=3)
 
         self.assertTrue(rule1.overlaps(rule2))
         self.assertTrue(rule2.overlaps(rule1))
@@ -35,11 +35,11 @@ class TestPiLightRule(TestCase):
         self.assertFalse(rule2.overlaps(rule5))
 
     def test_overlaps_head(self) -> None:
-        rule1 = PiLightRule(start_time=1, stop_time=8)
-        rule2 = PiLightRule(start_time=5, stop_time=8)
-        rule3 = PiLightRule(start_time=5, stop_time=8)
-        rule4 = PiLightRule(start_time=5, stop_time=9)
-        rule5 = PiLightRule(start_time=7, stop_time=9)
+        rule1 = Rule(start_time=1, stop_time=8)
+        rule2 = Rule(start_time=5, stop_time=8)
+        rule3 = Rule(start_time=5, stop_time=8)
+        rule4 = Rule(start_time=5, stop_time=9)
+        rule5 = Rule(start_time=7, stop_time=9)
 
         self.assertTrue(rule1.overlaps(rule2, OverlapRegion.HEAD))
         self.assertFalse(rule2.overlaps(rule1, OverlapRegion.HEAD))
@@ -50,11 +50,11 @@ class TestPiLightRule(TestCase):
         self.assertFalse(rule5.overlaps(rule2, OverlapRegion.HEAD))
 
     def test_overlaps_tail(self) -> None:
-        rule1 = PiLightRule(start_time=1, stop_time=8)
-        rule2 = PiLightRule(start_time=5, stop_time=8)
-        rule3 = PiLightRule(start_time=5, stop_time=8)
-        rule4 = PiLightRule(start_time=5, stop_time=9)
-        rule5 = PiLightRule(start_time=7, stop_time=9)
+        rule1 = Rule(start_time=1, stop_time=8)
+        rule2 = Rule(start_time=5, stop_time=8)
+        rule3 = Rule(start_time=5, stop_time=8)
+        rule4 = Rule(start_time=5, stop_time=9)
+        rule5 = Rule(start_time=7, stop_time=9)
 
         self.assertFalse(rule1.overlaps(rule2, OverlapRegion.TAIL))
         self.assertFalse(rule2.overlaps(rule1, OverlapRegion.TAIL))

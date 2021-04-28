@@ -2,18 +2,18 @@ from copy import deepcopy
 from datetime import datetime
 from typing import Tuple
 
-from app.services.pi_light.color import PiLightColor
+from app.services.pi_light.color import Color
 from app.services.pi_light.days import Day
-from app.services.pi_light.rule import PiLightRule, OverlapRegion
+from app.services.pi_light.rule import Rule, OverlapRegion
 
 
-class PiLight:
-    rules: dict[int, list[PiLightRule]]
+class Light:
+    rules: dict[int, list[Rule]]
 
     def __init__(self):
         self.rules = {i: [] for i in range(7)}
 
-    def add_rule(self, rule: PiLightRule, day: Day) -> None:
+    def add_rule(self, rule: Rule, day: Day) -> None:
         day_rules = self.rules[day.value]
         if not day_rules or rule.start_time > day_rules[-1].stop_time:
             return day_rules.append(rule)
@@ -65,11 +65,11 @@ class PiLight:
             new_rules.append(rule)
         self.rules[day.value] = new_rules
 
-    def remove_rule(self, rule: PiLightRule, day: Day) -> None:
+    def remove_rule(self, rule: Rule, day: Day) -> None:
         # TODO: add tests and implement
         pass
 
-    def current_rule(self) -> Tuple[PiLightRule, float]:
+    def current_rule(self) -> Tuple[Rule, float]:
         now = datetime.now()
         day = now.weekday()
         msec = int((now - now.replace(hour=0, minute=0, second=0,
@@ -79,10 +79,10 @@ class PiLight:
                 percentage = (msec - r.start_time) / (r.stop_time - r.start_time)
                 return r, percentage
 
-        return PiLightRule(), 0.0
+        return Rule(), 0.0
 
-    def color(self) -> PiLightColor:
+    def color(self) -> Color:
         current_rule, percentage = self.current_rule()
-        return PiLightColor.gradient(
+        return Color.gradient(
             current_rule.start_color, current_rule.stop_color, percentage
         )

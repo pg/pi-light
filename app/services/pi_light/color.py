@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 
-class PiLightColor(BaseModel):
+class Color(BaseModel):
     r: int = Field(255, ge=0, le=255)
     g: int = Field(255, ge=0, le=255)
     b: int = Field(255, ge=0, le=255)
@@ -13,4 +13,4 @@ class PiLightColor(BaseModel):
         g = c1.g + (c2.g - c1.g) * percentage
         b = c1.b + (c2.b - c1.b) * percentage
         brightness = c1.brightness + (c2.brightness - c1.brightness) * percentage
-        return PiLightColor(r=r, g=g, b=b, brightness=brightness)
+        return Color(r=r, g=g, b=b, brightness=brightness)
