@@ -1,0 +1,88 @@
+from copy import deepcopy
+from datetime import datetime
+from typing import Tuple
+
+from app.services.pi_light.color import PiLightColor
+from app.services.pi_light.days import Day
+from app.services.pi_light.rule import PiLightRule, OverlapRegion
+
+
+class PiLight:
+    rules: dict[int, list[PiLightRule]]
+
+    def __init__(self):
+        self.rules = {i: [] for i in range(7)}
+
+    def add_rule(self, rule: PiLightRule, day: Day) -> None:
+        day_rules = self.rules[day.value]
+        if not day_rules or rule.start_time > day_rules[-1].stop_time:
+            return day_rules.append(rule)
+        if rule.stop_time < day_rules[0].start_time:
+            return day_rules.insert(0, rule)
+
+        # Add in sorted order
+        new_rules = []
+        rule_added = False
+        for r in day_rules:
+            # existing rule is within new rule
+            if r.within(rule):
+                continue
+            # new rule is within existing rule
+            elif rule.within(r):
+                new_head = deepcopy(r)
+                new_head.stop_time = rule.start_time - 1
+                new_rules.append(new_head)
+                new_rules.append(rule)
+                new_tail = deepcopy(r)
+                new_tail.start_time = rule.stop_time + 1
+                new_rules.append(new_tail)
+                rule_added = True
+                continue
+            # rule is before existing rule
+            elif not rule_added and rule.stop_time < r.start_time:
+                new_rules.append(rule)
+                new_rules.append(r)
+                rule_added = True
+                continue
+            # rule overlaps head of existing rule
+            elif rule.overlaps(r, OverlapRegion.HEAD):
+                if not rule_added:
+                    new_rules.append(rule)
+                    rule_added = True
+                r.start_time = rule.stop_time + 1
+                new_rules.append(r)
+                continue
+            # rule overlaps tail of existing rule
+            elif rule.overlaps(r, OverlapRegion.TAIL):
+                r.stop_time = rule.start_time - 1
+                new_rules.append(r)
+                if not rule_added:
+                    new_rules.append(rule)
+                    rule_added = True
+                continue
+            new_rules.append(r)
+        if not rule_added:
+            new_rules.append(rule)
+        self.rules[day.value] = new_rules
+
+    def remove_rule(self, rule: PiLightRule, day: Day) -> None:
+        # TODO: add tests and implement
+        pass
+
+    def current_rule(self) -> Tuple[PiLightRule, float]:
+        now = datetime.now()
+        day = now.weekday()
+        msec = int((now - now.replace(hour=0, minute=0, second=0,
+                                      microsecond=0)).total_seconds() * 1000)
+        for r in self.rules[day]:
+            if r.start_time <= msec <= r.stop_time:
+                percentage = (msec - r.start_time) / (r.stop_time - r.start_time)
+                return r, percentage
+
+        return PiLightRule(), 0.0
+
+    def color(self) -> PiLightColor:
+        current_rule, percentage = self.current_rule()
+        return PiLightColor.gradient(
+            current_rule.start_color, current_rule.stop_color, percentage
+        )

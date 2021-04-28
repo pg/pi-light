@@ -31,10 +31,10 @@ class PiLightRule(BaseModel):
 
     def overlaps(self, rule, overlap_region: Optional[OverlapRegion] = None) -> bool:
         if overlap_region == OverlapRegion.HEAD:
-            return self.start_time < rule.start_time < self.stop_time
+            return self.start_time < rule.start_time <= self.stop_time
         elif overlap_region == OverlapRegion.TAIL:
-            return self.start_time < rule.stop_time < self.stop_time
+            return self.start_time <= rule.stop_time < self.stop_time
         else:
             return (self.within(rule)
-                    or self.start_time < rule.start_time < self.stop_time
-                    or self.start_time < rule.stop_time < self.stop_time)
+                    or self.start_time < rule.start_time <= self.stop_time
+                    or self.start_time <= rule.stop_time < self.stop_time)
