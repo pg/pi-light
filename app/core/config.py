@@ -15,14 +15,11 @@ class Settings(BaseSettings):
     version = "0.1.0"
     api_prefix: str = "/api"
     allowed_hosts: List[str] = []
-    environment: str = "test"
+    environment: str = "dev"
 
     class Config:
-        env = os.getenv("ENVIRONMENT", "test")
+        env = os.getenv("ENVIRONMENT", "dev")
         env_file = f"dotenv/{env}.env"
-
-    def test_environment(self) -> bool:
-        return self.environment == "test" or self.environment == "build-test"
 
 
 # logging configuration
