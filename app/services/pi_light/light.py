@@ -1,14 +1,23 @@
+import time
 from copy import deepcopy
 from datetime import datetime
 from typing import Tuple
 
+from app.core.config import Settings
+from app.core.settings import get_settings
 from app.services.pi_light.color import Color
 from app.services.pi_light.days import Day
 from app.services.pi_light.rule import Rule, OverlapRegion
 
+if get_settings().environment == "prod":
+    from app.services.pi_light.board import Board
+else:
+    from app.services.pi_light.fake_board import Board  # type: ignore
+
 
 class Light:
     rules: dict[int, list[Rule]]
+    board: Board
 
     def __init__(self):
         self.rules = {i: [] for i in range(7)}
@@ -86,3 +95,8 @@ class Light:
         return Color.gradient(
             current_rule.start_color, current_rule.stop_color, percentage
         )
+
+    def run(self, settings: Settings = get_settings()) -> None:
+        while True:
+            self.board.display(self.color())
+            time.sleep(settings.sleep_ms / 1000)

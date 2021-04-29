@@ -16,6 +16,9 @@ class Settings(BaseSettings):
     api_prefix: str = "/api"
     allowed_hosts: List[str] = []
     environment: str = "dev"
+    led_count: int = 24
+    default_brightness: float = 0.5
+    sleep_ms: int = 500
 
     class Config:
         env = os.getenv("ENVIRONMENT", "dev")
