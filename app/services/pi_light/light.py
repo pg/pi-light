@@ -23,16 +23,16 @@ class Light:
         self.rules = {i: [] for i in range(7)}
 
     def add_rule(self, rule: Rule, day: Day) -> None:
-        day_rules = self.rules[day.value]
-        if not day_rules or rule.start_time > day_rules[-1].stop_time:
-            return day_rules.append(rule)
-        if rule.stop_time < day_rules[0].start_time:
-            return day_rules.insert(0, rule)
+        rules = self.rules[day.value]
+        if not rules or rule.start_time > rules[-1].stop_time:
+            return rules.append(rule)
+        if rule.stop_time < rules[0].start_time:
+            return rules.insert(0, rule)
 
         # Add in sorted order
         new_rules = []
         rule_added = False
-        for r in day_rules:
+        for r in rules:
             # existing rule is within new rule
             if r.within(rule):
                 continue
