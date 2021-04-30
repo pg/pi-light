@@ -1,7 +1,7 @@
 import time
 from copy import deepcopy
 from datetime import datetime
-from typing import Tuple
+from typing import Tuple, Dict, List
 
 from app.core.config import Settings
 from app.core.settings import get_settings
@@ -16,7 +16,7 @@ else:
 
 
 class Light:
-    rules: dict[int, list[Rule]]
+    rules: Dict[int, List[Rule]]
     board: Board
 
     def __init__(self):

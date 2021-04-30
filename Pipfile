@@ -20,9 +20,14 @@ time-machine = "*"
 
 [packages]
 fastapi = "*"
+pydantic = "*"
 python-dotenv = "*"
 loguru = "*"
 uvicorn = "*"
 jinja2 = "*"
 python-multipart = "*"
+backports-zoneinfo = "*"
 adafruit-circuitpython-neopixel = "*"
+
+[requires]
+python_version = "3.7"
