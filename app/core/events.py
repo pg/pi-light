@@ -1,9 +1,11 @@
+import threading
 from typing import Callable
 
 from fastapi import FastAPI
 from loguru import logger
 
 from app.core.config import Settings
+from app.core.light import get_light
 from app.core.settings import get_settings
 
 
@@ -11,7 +13,7 @@ def create_start_app_handler(
     app: FastAPI, settings: Settings = get_settings()
 ) -> Callable:  # type: ignore
     async def start_app() -> None:
-        pass
+        threading.Thread(target=get_light().run, daemon=True).start()
 
     return start_app
 
