@@ -15,6 +15,10 @@ else:
     from app.services.pi_light.fake_board import Board  # type: ignore
 
 
+class RuleDoesNotExistError(Exception):
+    pass
+
+
 class Light:
     rules: Dict[int, List[Rule]]
     board: Board
@@ -76,8 +80,9 @@ class Light:
         self.rules[day.value] = new_rules
 
     def remove_rule(self, rule: Rule, day: Day) -> None:
-        # TODO: add tests and implement
-        pass
+        if rule not in self.rules[day]:
+            raise RuleDoesNotExistError()
+        self.rules[day].remove(rule)
 
     def current_rule(self) -> Tuple[Rule, float]:
         now = datetime.now()

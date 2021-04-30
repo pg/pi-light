@@ -11,7 +11,7 @@ from testslide import TestCase
 
 from app.services.pi_light.color import Color
 from app.services.pi_light.days import Day
-from app.services.pi_light.light import Light
+from app.services.pi_light.light import Light, RuleDoesNotExistError
 from app.services.pi_light.rule import Rule
 
 
@@ -233,7 +233,6 @@ class TestLight(TestCase):
             self.light.rules[day]
         )
 
-    @pytest.mark.focus
     def test_add_conflicting_rules_to_day(self) -> None:
         day = Day.TUESDAY
         rule1 = Rule(start_time=1, stop_time=19)
@@ -284,6 +283,37 @@ class TestLight(TestCase):
     def test_add_invalid_rule_bad_color(self) -> None:
         with pytest.raises(ValidationError):
             self.light.add_rule(Rule(start_color=Color(r=-1)), Day.SUNDAY)
+
+    def test_remove_rule(self) -> None:
+        day = Day(datetime.now().weekday())
+        rule1 = Rule(start_time=0, stop_time=2000)
+        rule2 = Rule(start_time=4000, stop_time=6000)
+
+        self.light.add_rule(rule1, day)
+        self.light.add_rule(rule2, day)
+        self.light.remove_rule(rule1, day)
+
+        self.assertListEqual(
+            [rule2],
+            self.light.rules[day]
+        )
+
+    def test_remove_rule_does_not_exist(self) -> None:
+        day = Day(datetime.now().weekday())
+        rule1 = Rule(start_time=0, stop_time=2000)
+        rule2 = Rule(start_time=4000, stop_time=6000)
+        rule3 = Rule(start_time=9000, stop_time=12000)
+
+        self.light.add_rule(rule1, day)
+        self.light.add_rule(rule2, day)
+
+        with pytest.raises(RuleDoesNotExistError):
+            self.light.remove_rule(rule3, day)
+
+        self.assertListEqual(
+            [rule1, rule2],
+            self.light.rules[day]
+        )
 
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_current_rule(self) -> None:
