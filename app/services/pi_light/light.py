@@ -21,6 +21,7 @@ class Light:
 
     def __init__(self):
         self.rules = {i: [] for i in range(7)}
+        self.board = Board()
 
     def add_rule(self, rule: Rule, day: Day) -> None:
         rules = self.rules[day.value]
