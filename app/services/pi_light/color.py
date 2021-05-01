@@ -1,11 +1,23 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, Extra
 
 
 class Color(BaseModel):
-    r: int = Field(0, ge=0, le=255)
-    g: int = Field(0, ge=0, le=255)
-    b: int = Field(0, ge=0, le=255)
+    r: int = Field(0, ge=0, le=255, title="Red")
+    g: int = Field(0, ge=0, le=255, title="Green")
+    b: int = Field(0, ge=0, le=255, title="Blue")
     brightness: float = Field(0, ge=0, le=1)
+
+    class Config:
+        frozen = True
+        validate_all = True
+        extra = Extra.forbid
+
+    @property
+    def hex(self) -> str:
+        return "#{:02x}{:02x}{:02x}".format(self.r, self.g, self.b)
+
+    def __str__(self) -> str:
+        return f"({self.r}, {self.g}, {self.b}, {self.brightness})"
 
     @staticmethod
     def from_hex(hex_str: str, brightness: float = 0.0):

@@ -18,3 +18,17 @@ class TestColor(TestCase):
         expected_color = Color(r=3, g=4, b=7, brightness=0.75)
 
         self.assertEqual(expected_color, Color.gradient(color1, color2, 0.5))
+
+    def test_str(self) -> None:
+        color = Color(r=1, g=2, b=4, brightness=0.5)
+
+        expected_color_str = "(1, 2, 4, 0.5)"
+
+        self.assertEqual(expected_color_str, str(color))
+
+    def test_hex(self) -> None:
+        color = Color(r=200, g=180, b=240)
+
+        expected_hex_str = "#c8b4f0"
+
+        self.assertEqual(expected_hex_str, color.hex)
