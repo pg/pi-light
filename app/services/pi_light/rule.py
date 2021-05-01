@@ -1,7 +1,7 @@
 from enum import IntEnum
 from typing import Optional
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, Extra
 
 from app.services.pi_light.color import Color
 
@@ -17,6 +17,12 @@ class Rule(BaseModel):
     stop_time: int = Field(86400000, gt=0, le=86400000)
     start_color: Color = Color()
     stop_color: Color = Color()
+
+    class Config:
+        frozen = True
+        validate_all = True
+        extra = Extra.forbid
+        use_enum_values = True
 
     @validator('stop_time')
     def starttime_after_stoptime(cls, v, values, **kwargs):

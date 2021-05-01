@@ -1,5 +1,4 @@
 import time
-from copy import deepcopy
 from datetime import datetime
 from typing import Tuple, Dict, List
 
@@ -43,12 +42,20 @@ class Light:
                 continue
             # new rule is within existing rule
             elif rule.within(r):
-                new_head = deepcopy(r)
-                new_head.stop_time = rule.start_time - 1
+                new_head = Rule(
+                    start_time=r.start_time,
+                    stop_time=rule.start_time - 1,
+                    start_color=r.start_color,
+                    stop_color=r.stop_color
+                )
                 new_rules.append(new_head)
                 new_rules.append(rule)
-                new_tail = deepcopy(r)
-                new_tail.start_time = rule.stop_time + 1
+                new_tail = Rule(
+                    start_time=rule.stop_time + 1,
+                    stop_time=r.stop_time,
+                    start_color=r.start_color,
+                    stop_color=r.stop_color
+                )
                 new_rules.append(new_tail)
                 rule_added = True
                 continue
@@ -63,13 +70,23 @@ class Light:
                 if not rule_added:
                     new_rules.append(rule)
                     rule_added = True
-                r.start_time = rule.stop_time + 1
-                new_rules.append(r)
+                new_rule = Rule(
+                    start_time=rule.stop_time + 1,
+                    stop_time=r.stop_time,
+                    start_color=r.start_color,
+                    stop_color=r.stop_color
+                )
+                new_rules.append(new_rule)
                 continue
             # rule overlaps tail of existing rule
             elif rule.overlaps(r, OverlapRegion.TAIL):
-                r.stop_time = rule.start_time - 1
-                new_rules.append(r)
+                new_rule = Rule(
+                    start_time=r.start_time,
+                    stop_time=rule.start_time - 1,
+                    start_color=r.start_color,
+                    stop_color=r.stop_color
+                )
+                new_rules.append(new_rule)
                 if not rule_added:
                     new_rules.append(rule)
                     rule_added = True
