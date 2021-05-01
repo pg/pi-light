@@ -6,7 +6,7 @@ from typing import Tuple, Dict, List
 from app.core.config import Settings
 from app.core.settings import get_settings
 from app.services.pi_light.color import Color
-from app.services.pi_light.days import Day
+from app.services.pi_light.day import Day
 from app.services.pi_light.rule import Rule, OverlapRegion
 
 if get_settings().environment == "prod":
@@ -20,15 +20,15 @@ class RuleDoesNotExistError(Exception):
 
 
 class Light:
-    rules: Dict[int, List[Rule]]
+    rules: Dict[Day, List[Rule]]
     board: Board
 
     def __init__(self):
-        self.rules = {i: [] for i in range(7)}
+        self.rules = {day: [] for day in Day}
         self.board = Board()
 
     def add_rule(self, rule: Rule, day: Day) -> None:
-        rules = self.rules[day.value]
+        rules = self.rules[day]
         if not rules or rule.start_time > rules[-1].stop_time:
             return rules.append(rule)
         if rule.stop_time < rules[0].start_time:
@@ -77,7 +77,7 @@ class Light:
             new_rules.append(r)
         if not rule_added:
             new_rules.append(rule)
-        self.rules[day.value] = new_rules
+        self.rules[day] = new_rules
 
     def remove_rule(self, rule: Rule, day: Day) -> None:
         if rule not in self.rules[day]:
@@ -86,7 +86,7 @@ class Light:
 
     def current_rule(self) -> Tuple[Rule, float]:
         now = datetime.now()
-        day = now.weekday()
+        day = Day(now.strftime("%A"))
         msec = int((now - now.replace(hour=0, minute=0, second=0,
                                       microsecond=0)).total_seconds() * 1000)
         for r in self.rules[day]:

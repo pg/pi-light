@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Body, HTTPException
 from starlette.status import HTTP_400_BAD_REQUEST
 
 from app.core.light import get_light
-from app.services.pi_light.days import Day
+from app.services.pi_light.day import Day
 from app.services.pi_light.light import Light, RuleDoesNotExistError
 from app.services.pi_light.rule import Rule
 

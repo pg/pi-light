@@ -10,7 +10,7 @@ from pydantic import ValidationError
 from testslide import TestCase
 
 from app.services.pi_light.color import Color
-from app.services.pi_light.days import Day
+from app.services.pi_light.day import Day
 from app.services.pi_light.light import Light, RuleDoesNotExistError
 from app.services.pi_light.rule import Rule
 
@@ -285,7 +285,7 @@ class TestLight(TestCase):
             self.light.add_rule(Rule(start_color=Color(r=-1)), Day.SUNDAY)
 
     def test_remove_rule(self) -> None:
-        day = Day(datetime.now().weekday())
+        day = Day(datetime.now().strftime("%A"))
         rule1 = Rule(start_time=0, stop_time=2000)
         rule2 = Rule(start_time=4000, stop_time=6000)
 
@@ -299,7 +299,7 @@ class TestLight(TestCase):
         )
 
     def test_remove_rule_does_not_exist(self) -> None:
-        day = Day(datetime.now().weekday())
+        day = Day(datetime.now().strftime("%A"))
         rule1 = Rule(start_time=0, stop_time=2000)
         rule2 = Rule(start_time=4000, stop_time=6000)
         rule3 = Rule(start_time=9000, stop_time=12000)
@@ -317,7 +317,7 @@ class TestLight(TestCase):
 
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_current_rule(self) -> None:
-        day = Day(datetime.now().weekday())
+        day = Day(datetime.now().strftime("%A"))
         rule1 = Rule(start_time=0, stop_time=2000)
         rule2 = Rule(start_time=4000, stop_time=6000)
         rule3 = Rule(start_time=8000, stop_time=20000)
@@ -333,7 +333,7 @@ class TestLight(TestCase):
 
     @time_machine.travel(datetime(2021, 4, 27, 12, 0, 5, tzinfo=chicago_tz))
     def test_current_rule_default(self) -> None:
-        day = Day(datetime.now().weekday())
+        day = Day(datetime.now().strftime("%A"))
         rule1 = Rule(start_time=0, stop_time=2000)
         rule2 = Rule(start_time=8000, stop_time=20000)
 
@@ -347,7 +347,7 @@ class TestLight(TestCase):
 
     @time_machine.travel(datetime(2021, 4, 27, 1, 2, 3, tzinfo=chicago_tz))
     def test_color(self) -> None:
-        day = Day(datetime.now().weekday())
+        day = Day(datetime.now().strftime("%A"))
         rule = Rule()
 
         self.light.add_rule(rule, day)
@@ -356,7 +356,7 @@ class TestLight(TestCase):
 
     @time_machine.travel(datetime(2021, 4, 27, 1, 2, 3, tzinfo=chicago_tz))
     def test_color_non_default(self) -> None:
-        day = Day(datetime.now().weekday())
+        day = Day(datetime.now().strftime("%A"))
         color = Color(r=1, g=2, b=4, brightness=0.5)
         rule = Rule(start_color=color, stop_color=color)
 
@@ -366,7 +366,7 @@ class TestLight(TestCase):
 
     @time_machine.travel(datetime(2021, 4, 27, 12, 0, 0, tzinfo=chicago_tz))
     def test_color_different_start_stop_color(self) -> None:
-        day = Day(datetime.now().weekday())
+        day = Day(datetime.now().strftime("%A"))
         start_color = Color(r=1, g=2, b=4, brightness=0.5)
         stop_color = Color(r=3, g=2, b=8, brightness=1)
         rule = Rule(start_color=start_color, stop_color=stop_color)
@@ -378,7 +378,7 @@ class TestLight(TestCase):
 
     @time_machine.travel(datetime(2021, 4, 27, 13, 2, 3, tzinfo=chicago_tz))
     def test_color_multiple_rules(self) -> None:
-        day = Day(datetime.now().weekday())
+        day = Day(datetime.now().strftime("%A"))
         color1 = Color(r=1, g=2, b=4, brightness=0.5)
         rule1 = Rule(stop_time=43200000, start_color=color1, stop_color=color1)
         color2 = Color(r=100, g=200, b=150, brightness=1)
