@@ -59,13 +59,13 @@ class Light:
                 new_rules.append(new_tail)
                 rule_added = True
                 continue
-            # rule is before existing rule
+            # new rule is before existing rule
             elif not rule_added and rule.stop_time < r.start_time:
                 new_rules.append(rule)
                 new_rules.append(r)
                 rule_added = True
                 continue
-            # rule overlaps head of existing rule
+            # new rule overlaps head of existing rule
             elif rule.overlaps(r, OverlapRegion.HEAD):
                 if not rule_added:
                     new_rules.append(rule)
@@ -78,7 +78,7 @@ class Light:
                 )
                 new_rules.append(new_rule)
                 continue
-            # rule overlaps tail of existing rule
+            # new rule overlaps tail of existing rule
             elif rule.overlaps(r, OverlapRegion.TAIL):
                 new_rule = Rule(
                     start_time=r.start_time,
