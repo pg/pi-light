@@ -1,6 +1,6 @@
 import time
 from datetime import datetime
-from typing import Tuple, Dict, List
+from typing import Tuple, Dict, List, Optional
 
 from app.core.config import Settings
 from app.core.settings import get_settings
@@ -101,7 +101,17 @@ class Light:
             raise RuleDoesNotExistError()
         self.rules[day].remove(rule)
 
-    def current_rule(self) -> Tuple[Rule, float]:
+    def remove_rule_by_hash(self, rule_hash: int) -> None:
+        for day, rules in self.rules.items():
+            hashed_day_rules = list(map(hash, rules))
+            try:
+                rule_ix = hashed_day_rules.index(rule_hash)
+            except ValueError:
+                continue
+            return self.remove_rule(rules[rule_ix], day)
+        raise RuleDoesNotExistError()
+
+    def current_rule(self) -> Tuple[Optional[Rule], float]:
         now = datetime.now()
         day = Day(now.strftime("%A"))
         msec = int((now - now.replace(hour=0, minute=0, second=0,
@@ -111,10 +121,12 @@ class Light:
                 percentage = (msec - r.start_time) / (r.stop_time - r.start_time)
                 return r, percentage
 
-        return Rule(), 0.0
+        return None, 0.0
 
     def color(self) -> Color:
         current_rule, percentage = self.current_rule()
+        if not current_rule:
+            return Color()
         return Color.gradient(
             current_rule.start_color, current_rule.stop_color, percentage
         )

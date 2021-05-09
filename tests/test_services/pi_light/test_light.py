@@ -316,6 +316,34 @@ class TestLight(TestCase):
         )
 
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
+    def test_remove_rule_by_hash(self) -> None:
+        day = Day(datetime.now().strftime("%A"))
+        rule1 = Rule(start_time=0, stop_time=2000)
+        rule2 = Rule(start_time=4000, stop_time=6000)
+        rule3 = Rule(start_time=9000, stop_time=90000)
+
+        self.light.add_rule(rule1, day)
+        self.light.add_rule(rule2, day)
+        self.light.add_rule(rule3, day)
+
+        self.light.remove_rule_by_hash(hash(rule2))
+
+        self.assertNotIn(rule2, self.light.rules[day])
+
+    @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
+    def test_remove_rule_by_hash_rule_not_found(self) -> None:
+        day = Day(datetime.now().strftime("%A"))
+        rule1 = Rule(start_time=0, stop_time=2000)
+        rule2 = Rule(start_time=4000, stop_time=6000)
+        rule3 = Rule(start_time=9000, stop_time=90000)
+
+        self.light.add_rule(rule1, day)
+        self.light.add_rule(rule2, day)
+
+        with pytest.raises(RuleDoesNotExistError):
+            self.light.remove_rule_by_hash(hash(rule3))
+
+    @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_current_rule(self) -> None:
         day = Day(datetime.now().strftime("%A"))
         rule1 = Rule(start_time=0, stop_time=2000)
@@ -342,20 +370,11 @@ class TestLight(TestCase):
 
         actual_rule, percentage = self.light.current_rule()
 
-        self.assertEqual(Rule(), actual_rule)
+        self.assertEqual(None, actual_rule)
         self.assertEqual(0.0, percentage)
 
     @time_machine.travel(datetime(2021, 4, 27, 1, 2, 3, tzinfo=chicago_tz))
     def test_color(self) -> None:
-        day = Day(datetime.now().strftime("%A"))
-        rule = Rule()
-
-        self.light.add_rule(rule, day)
-
-        self.assertEqual(Color(), self.light.color())
-
-    @time_machine.travel(datetime(2021, 4, 27, 1, 2, 3, tzinfo=chicago_tz))
-    def test_color_non_default(self) -> None:
         day = Day(datetime.now().strftime("%A"))
         color = Color(r=1, g=2, b=4, brightness=0.5)
         rule = Rule(start_color=color, stop_color=color)
@@ -363,6 +382,10 @@ class TestLight(TestCase):
         self.light.add_rule(rule, day)
 
         self.assertEqual(color, self.light.color())
+
+    @time_machine.travel(datetime(2021, 4, 27, 1, 2, 3, tzinfo=chicago_tz))
+    def test_color_default(self) -> None:
+        self.assertEqual(Color(), self.light.color())
 
     @time_machine.travel(datetime(2021, 4, 27, 12, 0, 0, tzinfo=chicago_tz))
     def test_color_different_start_stop_color(self) -> None:
