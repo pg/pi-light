@@ -22,13 +22,13 @@ class TestColor(TestCase):
     def test_str(self) -> None:
         color = Color(r=1, g=2, b=4, brightness=0.5)
 
-        expected_color_str = "(1, 2, 4, 0.5)"
-
-        self.assertEqual(expected_color_str, str(color))
+        self.assertEqual("(1, 2, 4, 0.5)", str(color))
 
     def test_hex(self) -> None:
         color = Color(r=200, g=180, b=240)
 
-        expected_hex_str = "#c8b4f0"
+        self.assertEqual("#c8b4f0", color.hex)
 
-        self.assertEqual(expected_hex_str, color.hex)
+    def test_random(self) -> None:
+        for i in range(20):
+            Color.random()

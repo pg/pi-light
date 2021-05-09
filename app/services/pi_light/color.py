@@ -1,3 +1,5 @@
+from random import randint, random
+
 from pydantic import BaseModel, Field, Extra
 
 
@@ -18,6 +20,15 @@ class Color(BaseModel):
 
     def __str__(self) -> str:
         return f"({self.r}, {self.g}, {self.b}, {self.brightness})"
+
+    @staticmethod
+    def random():
+        return Color(
+            r=randint(0, 255),  # nosec
+            g=randint(0, 255),  # nosec
+            b=randint(0, 255),  # nosec
+            brightness=random()  # nosec
+        )
 
     @staticmethod
     def from_hex(hex_str: str, brightness: float = 0.0):
