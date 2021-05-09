@@ -70,3 +70,16 @@ class TestRule(TestCase):
         self.assertFalse(rule2.overlaps(rule5, OverlapRegion.TAIL))
         self.assertFalse(rule4.overlaps(rule5, OverlapRegion.TAIL))
         self.assertFalse(rule5.overlaps(rule4, OverlapRegion.TAIL))
+
+    def test_time_interval(self) -> None:
+        rule1 = Rule(start_time=0, stop_time=60000)
+        rule2 = Rule(start_time=3600000, stop_time=7200000)
+        rule3 = Rule(start_time=46800000, stop_time=50400000)
+
+        self.assertEqual("12:00:00 AM - 12:01:00 AM", rule1.time_interval())
+        self.assertEqual("1:00:00 AM - 2:00:00 AM", rule2.time_interval())
+        self.assertEqual("1:00:00 PM - 2:00:00 PM", rule3.time_interval())
+
+    def test_random(self) -> None:
+        for i in range(20):
+            Rule.random()

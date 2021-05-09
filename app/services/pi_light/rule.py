@@ -1,5 +1,7 @@
+from datetime import datetime, timedelta
 from enum import IntEnum
 from typing import Optional
+from random import randint
 
 from pydantic import BaseModel, Field, validator, Extra
 
@@ -12,8 +14,7 @@ class OverlapRegion(IntEnum):
 
 
 class Rule(BaseModel):
-    # Time is in msec within 24hr day
-    start_time: int = Field(0, ge=0, lt=86400000)
+    start_time: int = Field(0, ge=0, lt=86400000)  # Time is in msec within 24hr day
     stop_time: int = Field(86400000, gt=0, le=86400000)
     start_color: Color = Color()
     stop_color: Color = Color()
@@ -44,3 +45,22 @@ class Rule(BaseModel):
             return (self.within(rule)
                     or self.start_time < rule.start_time <= self.stop_time
                     or self.start_time <= rule.stop_time < self.stop_time)
+
+    def time_interval(self):
+        d = datetime(2020, 1, 1)
+        start_str = (d + timedelta(microseconds=self.start_time * 1000))\
+            .strftime("%I:%M:%S %p").lstrip("0")
+        stop_str = (d + timedelta(microseconds=self.stop_time * 1000))\
+            .strftime("%I:%M:%S %p").lstrip("0")
+        return f"{start_str} - {stop_str}"
+
+    @staticmethod
+    def random():
+        start_time = randint(0, 86400000)  # nosec
+        stop_time = randint(start_time, 86400000)  # nosec
+        return Rule(
+            start_time=start_time,
+            stop_time=stop_time,
+            start_color=Color.random(),  # nosec
+            stop_color=Color.random(),  # nosec
+        )
