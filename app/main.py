@@ -8,6 +8,7 @@ from starlette.middleware.cors import CORSMiddleware
 from app.api.errors.http_error import http_error_handler
 from app.api.errors.validation_error import http422_error_handler
 from app.api.routes.api import router as api_router
+from app.api.routes.html import router as html_router
 from app.core.config import Settings
 from app.core.events import create_start_app_handler, create_stop_app_handler
 from app.core.settings import get_settings
@@ -33,6 +34,7 @@ def get_application(settings: Settings = get_settings()) -> FastAPI:
     application.add_exception_handler(RequestValidationError, http422_error_handler)
     application.add_exception_handler(ValidationError, http422_error_handler)
 
+    application.include_router(html_router)
     application.include_router(api_router, prefix=settings.api_prefix)
 
     return application

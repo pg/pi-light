@@ -4,7 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-black = "==20.8b1"
+black = "==21.4b2"
 flake8 = "*"
 isort = "*"
 mypy = "*"
@@ -28,6 +28,7 @@ jinja2 = "*"
 python-multipart = "*"
 backports-zoneinfo = "*"
 adafruit-circuitpython-neopixel = "*"
+humanize = "*"
 
 [requires]
 python_version = "3.7"
