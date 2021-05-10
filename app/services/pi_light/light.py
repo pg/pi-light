@@ -1,5 +1,5 @@
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Tuple, Dict, List, Optional
 
 from app.core.config import Settings
@@ -122,6 +122,47 @@ class Light:
                 return r, percentage
 
         return None, 0.0
+
+    def next_rule(self) -> Tuple[Optional[Rule], timedelta]:
+        now = datetime.now()
+        day = Day(now.strftime("%A"))
+        msec = int((now - now.replace(hour=0, minute=0, second=0,
+                                      microsecond=0)).total_seconds() * 1000)
+        for index, r in enumerate(self.rules[day]):
+            # if before first rule
+            if msec < r.start_time:
+                return r, timedelta(seconds=round((r.start_time - msec) / 1000.0))
+            # if checking last rule
+            if index + 1 == len(self.rules[day]):
+                if r.start_time <= msec <= r.stop_time:
+                    return (
+                        None,
+                        timedelta(seconds=round((r.stop_time - msec) / 1000.0))
+                    )
+                return None, timedelta(days=1)
+            next_rule = self.rules[day][index + 1]
+            if msec > next_rule.start_time:
+                continue
+            # if in a rule
+            if r.start_time <= msec <= r.stop_time:
+                # if next rule is immediate, return it
+                if r.stop_time + 1 == next_rule.start_time:
+                    return (
+                        next_rule,
+                        timedelta(seconds=round((r.stop_time - msec) / 1000.0))
+                    )
+                # if next rule is not immediate, return None
+                else:
+                    return (
+                        None,
+                        timedelta(seconds=round((r.stop_time - msec) / 1000.0))
+                    )
+            else:
+                return (
+                    next_rule,
+                    timedelta(seconds=round((next_rule.start_time - msec) / 1000.0))
+                )
+        return None, timedelta(days=1)
 
     def color(self) -> Color:
         current_rule, percentage = self.current_rule()
