@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 from enum import IntEnum
-from typing import Optional
 from random import randint
+from typing import Optional
 
-from pydantic import BaseModel, Field, validator, Extra
+from pydantic import BaseModel, Extra, Field, validator
 
 from app.services.pi_light.color import Color
 
@@ -25,12 +25,12 @@ class Rule(BaseModel):
         extra = Extra.forbid
         use_enum_values = True
 
-    @validator('stop_time')
+    @validator("stop_time")
     def starttime_after_stoptime(cls, v, values, **kwargs):
-        if 'start_time' in values and v < values['start_time']:
-            raise ValueError('start_time is after stop_time')
-        if 'start_time' in values and v == values['start_time']:
-            raise ValueError('start_time equals stop_time')
+        if "start_time" in values and v < values["start_time"]:
+            raise ValueError("start_time is after stop_time")
+        if "start_time" in values and v == values["start_time"]:
+            raise ValueError("start_time equals stop_time")
         return v
 
     def within(self, rule) -> bool:
@@ -42,16 +42,24 @@ class Rule(BaseModel):
         elif overlap_region == OverlapRegion.TAIL:
             return self.start_time <= rule.stop_time < self.stop_time
         else:
-            return (self.within(rule)
-                    or self.start_time < rule.start_time <= self.stop_time
-                    or self.start_time <= rule.stop_time < self.stop_time)
+            return (
+                self.within(rule)
+                or self.start_time < rule.start_time <= self.stop_time
+                or self.start_time <= rule.stop_time < self.stop_time
+            )
 
     def time_interval(self):
         d = datetime(2020, 1, 1)
-        start_str = (d + timedelta(microseconds=self.start_time * 1000))\
-            .strftime("%I:%M:%S %p").lstrip("0")
-        stop_str = (d + timedelta(microseconds=self.stop_time * 1000))\
-            .strftime("%I:%M:%S %p").lstrip("0")
+        start_str = (
+            (d + timedelta(microseconds=self.start_time * 1000))
+            .strftime("%I:%M:%S %p")
+            .lstrip("0")
+        )
+        stop_str = (
+            (d + timedelta(microseconds=self.stop_time * 1000))
+            .strftime("%I:%M:%S %p")
+            .lstrip("0")
+        )
         return f"{start_str} - {stop_str}"
 
     @staticmethod

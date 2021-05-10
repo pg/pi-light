@@ -1,12 +1,12 @@
 import time
 from datetime import datetime, timedelta
-from typing import Tuple, Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from app.core.config import Settings
 from app.core.settings import get_settings
 from app.services.pi_light.color import Color
 from app.services.pi_light.day import Day
-from app.services.pi_light.rule import Rule, OverlapRegion
+from app.services.pi_light.rule import OverlapRegion, Rule
 
 if get_settings().environment == "prod":
     from app.services.pi_light.board import Board
@@ -46,7 +46,7 @@ class Light:
                     start_time=r.start_time,
                     stop_time=rule.start_time - 1,
                     start_color=r.start_color,
-                    stop_color=r.stop_color
+                    stop_color=r.stop_color,
                 )
                 new_rules.append(new_head)
                 new_rules.append(rule)
@@ -54,7 +54,7 @@ class Light:
                     start_time=rule.stop_time + 1,
                     stop_time=r.stop_time,
                     start_color=r.start_color,
-                    stop_color=r.stop_color
+                    stop_color=r.stop_color,
                 )
                 new_rules.append(new_tail)
                 rule_added = True
@@ -74,7 +74,7 @@ class Light:
                     start_time=rule.stop_time + 1,
                     stop_time=r.stop_time,
                     start_color=r.start_color,
-                    stop_color=r.stop_color
+                    stop_color=r.stop_color,
                 )
                 new_rules.append(new_rule)
                 continue
@@ -84,7 +84,7 @@ class Light:
                     start_time=r.start_time,
                     stop_time=rule.start_time - 1,
                     start_color=r.start_color,
-                    stop_color=r.stop_color
+                    stop_color=r.stop_color,
                 )
                 new_rules.append(new_rule)
                 if not rule_added:
@@ -114,8 +114,12 @@ class Light:
     def current_rule(self) -> Tuple[Optional[Rule], float]:
         now = datetime.now()
         day = Day(now.strftime("%A"))
-        msec = int((now - now.replace(hour=0, minute=0, second=0,
-                                      microsecond=0)).total_seconds() * 1000)
+        msec = int(
+            (
+                now - now.replace(hour=0, minute=0, second=0, microsecond=0)
+            ).total_seconds()
+            * 1000
+        )
         for r in self.rules[day]:
             if r.start_time <= msec <= r.stop_time:
                 percentage = (msec - r.start_time) / (r.stop_time - r.start_time)
@@ -126,8 +130,12 @@ class Light:
     def next_rule(self) -> Tuple[Optional[Rule], timedelta]:
         now = datetime.now()
         day = Day(now.strftime("%A"))
-        msec = int((now - now.replace(hour=0, minute=0, second=0,
-                                      microsecond=0)).total_seconds() * 1000)
+        msec = int(
+            (
+                now - now.replace(hour=0, minute=0, second=0, microsecond=0)
+            ).total_seconds()
+            * 1000
+        )
         for index, r in enumerate(self.rules[day]):
             # if before first rule
             if msec < r.start_time:
@@ -137,7 +145,7 @@ class Light:
                 if r.start_time <= msec <= r.stop_time:
                     return (
                         None,
-                        timedelta(seconds=round((r.stop_time - msec) / 1000.0))
+                        timedelta(seconds=round((r.stop_time - msec) / 1000.0)),
                     )
                 return None, timedelta(days=1)
             next_rule = self.rules[day][index + 1]
@@ -149,18 +157,18 @@ class Light:
                 if r.stop_time + 1 == next_rule.start_time:
                     return (
                         next_rule,
-                        timedelta(seconds=round((r.stop_time - msec) / 1000.0))
+                        timedelta(seconds=round((r.stop_time - msec) / 1000.0)),
                     )
                 # if next rule is not immediate, return None
                 else:
                     return (
                         None,
-                        timedelta(seconds=round((r.stop_time - msec) / 1000.0))
+                        timedelta(seconds=round((r.stop_time - msec) / 1000.0)),
                     )
             else:
                 return (
                     next_rule,
-                    timedelta(seconds=round((next_rule.start_time - msec) / 1000.0))
+                    timedelta(seconds=round((next_rule.start_time - msec) / 1000.0)),
                 )
         return None, timedelta(days=1)
 

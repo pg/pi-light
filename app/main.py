@@ -4,7 +4,6 @@ from fastapi.exceptions import HTTPException, RequestValidationError
 from pydantic import ValidationError
 from starlette.middleware.cors import CORSMiddleware
 
-
 from app.api.errors.http_error import http_error_handler
 from app.api.errors.validation_error import http422_error_handler
 from app.api.routes.api import router as api_router

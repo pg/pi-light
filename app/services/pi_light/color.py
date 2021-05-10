@@ -1,6 +1,6 @@
 from random import randint, random
 
-from pydantic import BaseModel, Field, Extra
+from pydantic import BaseModel, Extra, Field
 
 
 class Color(BaseModel):
@@ -27,13 +27,13 @@ class Color(BaseModel):
             r=randint(0, 255),  # nosec
             g=randint(0, 255),  # nosec
             b=randint(0, 255),  # nosec
-            brightness=random()  # nosec
+            brightness=random(),  # nosec
         )
 
     @staticmethod
     def from_hex(hex_str: str, brightness: float = 0.0):
-        h = hex_str.lstrip('#')
-        rgb = tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+        h = hex_str.lstrip("#")
+        rgb = tuple(int(h[i : i + 2], 16) for i in (0, 2, 4))
         return Color(r=rgb[0], g=rgb[1], b=rgb[2], brightness=brightness)
 
     @staticmethod

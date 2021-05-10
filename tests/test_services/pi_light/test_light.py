@@ -1,4 +1,5 @@
 from datetime import datetime
+
 try:
     from zoneinfo import ZoneInfo
 except ImportError:
@@ -66,10 +67,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule1, day)
         self.light.add_rule(rule2, day)
 
-        self.assertListEqual(
-            [new_rule1, rule2, new_rule2],
-            self.light.rules[day]
-        )
+        self.assertListEqual([new_rule1, rule2, new_rule2], self.light.rules[day])
 
     def test_rules_conflict_overlap_head(self) -> None:
         day = Day.TUESDAY
@@ -81,10 +79,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule1, day)
         self.light.add_rule(rule2, day)
 
-        self.assertListEqual(
-            [rule2, new_rule1],
-            self.light.rules[day]
-        )
+        self.assertListEqual([rule2, new_rule1], self.light.rules[day])
 
     def test_rules_conflict_overlap_tail(self) -> None:
         day = Day.TUESDAY
@@ -96,10 +91,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule1, day)
         self.light.add_rule(rule2, day)
 
-        self.assertListEqual(
-            [new_rule1, rule2],
-            self.light.rules[day]
-        )
+        self.assertListEqual([new_rule1, rule2], self.light.rules[day])
 
     def test_rules_conflict_touch_head(self) -> None:
         day = Day.TUESDAY
@@ -111,10 +103,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule1, day)
         self.light.add_rule(rule2, day)
 
-        self.assertListEqual(
-            [rule2, new_rule1],
-            self.light.rules[day]
-        )
+        self.assertListEqual([rule2, new_rule1], self.light.rules[day])
 
     def test_rules_conflict_touch_tail(self) -> None:
         day = Day.TUESDAY
@@ -126,10 +115,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule1, day)
         self.light.add_rule(rule2, day)
 
-        self.assertListEqual(
-            [new_rule1, rule2],
-            self.light.rules[day]
-        )
+        self.assertListEqual([new_rule1, rule2], self.light.rules[day])
 
     def test_rules_conflict_full_overlap(self) -> None:
         day = Day.TUESDAY
@@ -139,10 +125,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule1, day)
         self.light.add_rule(rule2, day)
 
-        self.assertListEqual(
-            [rule2],
-            self.light.rules[day]
-        )
+        self.assertListEqual([rule2], self.light.rules[day])
 
     def test_rules_conflict_overlap_head_tail(self) -> None:
         day = Day.TUESDAY
@@ -157,10 +140,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule2, day)
         self.light.add_rule(rule3, day)
 
-        self.assertListEqual(
-            [new_rule1, rule3, new_rule2],
-            self.light.rules[day]
-        )
+        self.assertListEqual([new_rule1, rule3, new_rule2], self.light.rules[day])
 
     def test_rules_conflict_overlap_tail_and_whole(self) -> None:
         day = Day.TUESDAY
@@ -174,10 +154,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule2, day)
         self.light.add_rule(rule3, day)
 
-        self.assertListEqual(
-            [new_rule1, rule3],
-            self.light.rules[day]
-        )
+        self.assertListEqual([new_rule1, rule3], self.light.rules[day])
 
     def test_rules_conflict_overlap_whole_and_head(self) -> None:
         day = Day.TUESDAY
@@ -191,10 +168,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule2, day)
         self.light.add_rule(rule3, day)
 
-        self.assertListEqual(
-            [rule3, new_rule1],
-            self.light.rules[day]
-        )
+        self.assertListEqual([rule3, new_rule1], self.light.rules[day])
 
     def test_rules_conflict_overlap_tail_whole_head(self) -> None:
         day = Day.TUESDAY
@@ -211,10 +185,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule3, day)
         self.light.add_rule(rule4, day)
 
-        self.assertListEqual(
-            [new_rule1, rule4, new_rule2],
-            self.light.rules[day]
-        )
+        self.assertListEqual([new_rule1, rule4, new_rule2], self.light.rules[day])
 
     def test_rules_conflict_overlap_multiple_whole(self) -> None:
         day = Day.TUESDAY
@@ -228,10 +199,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule3, day)
         self.light.add_rule(rule4, day)
 
-        self.assertListEqual(
-            [rule4],
-            self.light.rules[day]
-        )
+        self.assertListEqual([rule4], self.light.rules[day])
 
     def test_add_conflicting_rules_to_day(self) -> None:
         day = Day.TUESDAY
@@ -263,9 +231,17 @@ class TestLight(TestCase):
         self.light.add_rule(rule9, day)
 
         self.assertListEqual(
-            [new_rule1, new_rule2, new_rule3, new_rule4, rule9, new_rule5, rule8,
-             new_rule6],
-            self.light.rules[day]
+            [
+                new_rule1,
+                new_rule2,
+                new_rule3,
+                new_rule4,
+                rule9,
+                new_rule5,
+                rule8,
+                new_rule6,
+            ],
+            self.light.rules[day],
         )
 
     def test_add_invalid_rule_invalid_start_time(self) -> None:
@@ -293,10 +269,7 @@ class TestLight(TestCase):
         self.light.add_rule(rule2, day)
         self.light.remove_rule(rule1, day)
 
-        self.assertListEqual(
-            [rule2],
-            self.light.rules[day]
-        )
+        self.assertListEqual([rule2], self.light.rules[day])
 
     def test_remove_rule_does_not_exist(self) -> None:
         day = Day(datetime.now().strftime("%A"))
@@ -310,10 +283,7 @@ class TestLight(TestCase):
         with pytest.raises(RuleDoesNotExistError):
             self.light.remove_rule(rule3, day)
 
-        self.assertListEqual(
-            [rule1, rule2],
-            self.light.rules[day]
-        )
+        self.assertListEqual([rule1, rule2], self.light.rules[day])
 
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_remove_rule_by_hash(self) -> None:

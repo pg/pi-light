@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from app.services.pi_light.rule import Rule, OverlapRegion
+from app.services.pi_light.rule import OverlapRegion, Rule
 
 
 class TestRule(TestCase):

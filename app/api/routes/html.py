@@ -1,5 +1,5 @@
 import humanize
-from fastapi import Request, APIRouter
+from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
 
 from app.core.light import get_light
@@ -23,12 +23,18 @@ async def light_form(request: Request):
 
 
 def render_light_template(request, light):
-    current_rule_str = light.current_rule()[0].time_interval() \
-        if light.current_rule()[0] else "No Active Rule"
+    current_rule_str = (
+        light.current_rule()[0].time_interval()
+        if light.current_rule()[0]
+        else "No Active Rule"
+    )
     current_color_hex = light.color().hex
     light_next_rule = light.next_rule()
-    next_rule = light_next_rule[0].time_interval() \
-        if light_next_rule[0] else "No more rules today"
+    next_rule = (
+        light_next_rule[0].time_interval()
+        if light_next_rule[0]
+        else "No more rules today"
+    )
     time_until_change = humanize.naturaldelta(light_next_rule[1])
     return templates.TemplateResponse(
         "light.html",
@@ -38,6 +44,6 @@ def render_light_template(request, light):
             "current_color_hex": current_color_hex,
             "next_rule": next_rule,
             "time_until_change": time_until_change,
-            "rules": light.rules
-        }
+            "rules": light.rules,
+        },
     )
