@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     api_prefix: str = "/api"
     allowed_hosts: List[str] = []
     environment: str = "dev"
-    led_count: int = 24
+    led_count: int = 33
     default_brightness: float = 0.5
     sleep_ms: int = 500
     default_rules: str = "default_rules.json"
