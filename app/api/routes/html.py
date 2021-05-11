@@ -1,9 +1,15 @@
+from datetime import datetime, time, timedelta
+
 import humanize
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
+from loguru import logger
+from pydantic import ValidationError
 
 from app.core.light import get_light
+from app.services.pi_light.color import Color
 from app.services.pi_light.day import Day
+from app.services.pi_light.light import RuleDoesNotExistError
 from app.services.pi_light.rule import Rule
 
 templates = Jinja2Templates(directory="app/templates")
@@ -14,11 +20,39 @@ router = APIRouter()
 async def light_form(request: Request):
     light = get_light()
     form_data = await request.form()
-    if "add" in form_data.keys():
-        light.add_rule(Rule(), Day.SUNDAY)  # FIXME: Use starlette wtf forms here
-    elif "remove" in form_data.keys():
+    if "add_rule" in form_data.keys():
+        try:
+            start_time = time_to_msec(
+                datetime.strptime(form_data.get("start_time"), "%H:%M").time()
+            )
+            stop_time = time_to_msec(
+                datetime.strptime(form_data.get("stop_time"), "%H:%M").time()
+            )
+            start_color = Color.from_hex(
+                form_data.get("start_color"),
+                brightness=int(form_data.get("start_color_brightness")) / 100.0,
+            )
+            stop_color = Color.from_hex(
+                form_data.get("stop_color"),
+                brightness=int(form_data.get("stop_color_brightness")) / 100.0,
+            )
+            light.add_rule(
+                Rule(
+                    start_time=start_time,
+                    stop_time=stop_time,
+                    start_color=start_color,
+                    stop_color=stop_color,
+                ),
+                Day(form_data.get("day")),
+            )
+        except (ValidationError, ValueError) as e:
+            logger.info(f"Issue parsing Add Rule form: {e}")
+    elif "remove_rule" in form_data.keys():
         for rule_hash in form_data.getlist("rule_hashes"):
-            light.remove_rule_by_hash(int(rule_hash))
+            try:
+                light.remove_rule_by_hash(int(rule_hash))
+            except RuleDoesNotExistError as e:
+                logger.info(f"Issue removing rule: {rule_hash}, {e}")
     return render_light_template(request, light)
 
 
@@ -28,7 +62,6 @@ def render_light_template(request, light):
         if light.current_rule()[0]
         else "No Active Rule"
     )
-    current_color_hex = light.color().hex
     light_next_rule = light.next_rule()
     next_rule = (
         light_next_rule[0].time_interval()
@@ -41,9 +74,14 @@ def render_light_template(request, light):
         {
             "request": request,
             "current_rule_str": current_rule_str,
-            "current_color_hex": current_color_hex,
+            "current_color": light.color(),
             "next_rule": next_rule,
             "time_until_change": time_until_change,
             "rules": light.rules,
         },
     )
+
+
+def time_to_msec(t: time) -> int:
+    td = datetime.combine(datetime.min, t) - datetime.min
+    return td // timedelta(milliseconds=1)

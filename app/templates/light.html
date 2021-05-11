@@ -5,36 +5,46 @@
     <title>Pi Light</title>
 </head>
 <body>
-    <p>Rule: {{ current_rule_str }}</p>
-    <p>Color: <div style="background-color:{{ current_color_hex }}; padding:20px 20px;"></div></p>
-    <p>Next Rule: {{ next_rule }}  -  Time Until Change: {{ time_until_change }}</p>
+    <p>Rule: {{ current_rule_str }} <span style="background-color: {{ current_color.hex }}; margin-left: 2px; margin-right: 5px; width: 15px; height: 15px; display: inline-block;"></span>{{ current_color.brightness * 100 }}</p>
+    <p>Next Rule: {{ next_rule }}</p>
+    <p>Time Until Change: {{ time_until_change }}</p>
     <form method="post">
         {% for day, day_rules in rules.items() %}
         <fieldset>
         <legend>{{ day.value }}</legend>
             {% for rule in day_rules %}
-            <input type="checkbox" id="{{ rule.hash }}" name="rule_hashes" value="{{ rule.hash }}"/>
-            <label for="{{ rule.hash }}">{{ rule.time_interval() }}</label><br>
+            <div style="display: inline-block;">
+                <input type="checkbox" id="{{ rule.hash }}" name="rule_hashes" value="{{ rule.hash }}"/>
+                <label for="{{ rule.hash }}">{{ rule.time_interval() }}</label>
+            </div>
+            <div style="background-color: {{ rule.start_color.hex }}; margin-left: 3px; width: 12px; height: 12px; display: inline-block;"></div>
+            <div style="background-color: {{ rule.stop_color.hex }}; margin-left: 5px; width: 12px; height: 12px; display: inline-block"></div>
+            <br>
             {% endfor %}
         </fieldset>
         {% endfor %}
-        <input type="submit" name="remove" value="Remove checked rules">
+        <input type="submit" name="remove_rule" value="Remove checked rules">
     </form>
+    <br>
     <form method="post">
         <select name="day" id="day">
-          <option value="monday">Monday</option>
-          <option value="tuesday">Tuesday</option>
-          <option value="wednesday">Wednesday</option>
-          <option value="thursday">Thursday</option>
-          <option value="friday">Friday</option>
-          <option value="saturday">Saturday</option>
-          <option value="sunday">Sunday</option>
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
         </select>
         <input type="time" name="start_time"/>
         <input type="time" name="stop_time"/>
         <input type="color" name="start_color"/>
+        <input type="range" name="start_color_brightness" oninput="r1.value = this.value"/>
+        <output id="r1">0</output>
         <input type="color" name="stop_color"/>
-        <input type="submit" name="add" value="Add rule">
+        <input type="range" name="stop_color_brightness" oninput="r2.value = this.value"/>
+        <output id="r2">0</output>
+        <input type="submit" name="add_rule" value="Add rule">
     </form>
 </body>
 </html>
