@@ -42,4 +42,4 @@ def get_application(settings: Settings = get_settings()) -> FastAPI:
 app = get_application()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=80)  # nosec
+    uvicorn.run(app, host="0.0.0.0", port=get_settings().app_port)  # nosec

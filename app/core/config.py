@@ -12,6 +12,7 @@ from app.core.logging import InterceptHandler
 class Settings(BaseSettings):
     debug: bool = True
     app_name: str = "Pi Light"
+    app_port: int = 9000
     version = "0.1.0"
     api_prefix: str = "/api"
     allowed_hosts: List[str] = []
