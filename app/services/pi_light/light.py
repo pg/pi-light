@@ -1,6 +1,9 @@
+import json
 import time
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Tuple
+
+from loguru import logger
 
 from app.core.config import Settings
 from app.core.settings import get_settings
@@ -184,3 +187,13 @@ class Light:
         while True:
             self.board.display(self.color())
             time.sleep(settings.sleep_ms / 1000)
+
+    def load_rules(self, rule_file: str) -> None:
+        try:
+            with open(rule_file, "r") as f:
+                data = json.load(f)
+                for day, rules in data.items():
+                    for rule in rules:
+                        self.rules[day].append(Rule.parse_obj(rule))
+        except Exception as e:
+            logger.info(f"Unable to load rules file: {e}")

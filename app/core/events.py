@@ -13,6 +13,7 @@ def create_start_app_handler(
     app: FastAPI, settings: Settings = get_settings()
 ) -> Callable:  # type: ignore
     async def start_app() -> None:
+        get_light().load_rules(settings.default_rules)
         threading.Thread(target=get_light().run, daemon=True).start()
 
     return start_app

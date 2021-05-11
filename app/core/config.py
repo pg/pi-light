@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     led_count: int = 24
     default_brightness: float = 0.5
     sleep_ms: int = 500
+    default_rules: str = "default_rules.json"
 
     class Config:
         env = os.getenv("ENVIRONMENT", "dev")

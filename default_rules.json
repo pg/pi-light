@@ -1,0 +1,240 @@
+{
+  "Monday": [
+    {
+      "start_time": 18000000,
+      "stop_time": 26999999,
+      "start_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      }
+    },
+    {
+      "start_time": 27000000,
+      "stop_time": 30600000,
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.4
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      }
+    }
+  ],
+  "Tuesday": [
+    {
+      "start_time": 18000000,
+      "stop_time": 26999999,
+      "start_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      }
+    },
+    {
+      "start_time": 27000000,
+      "stop_time": 30600000,
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.4
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      }
+    }
+  ],
+  "Wednesday": [
+    {
+      "start_time": 18000000,
+      "stop_time": 26999999,
+      "start_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      }
+    },
+    {
+      "start_time": 27000000,
+      "stop_time": 30600000,
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.4
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      }
+    }
+  ],
+  "Thursday": [
+    {
+      "start_time": 18000000,
+      "stop_time": 26999999,
+      "start_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      }
+    },
+    {
+      "start_time": 27000000,
+      "stop_time": 30600000,
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.4
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      }
+    }
+  ],
+  "Friday": [
+    {
+      "start_time": 18000000,
+      "stop_time": 26999999,
+      "start_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      }
+    },
+    {
+      "start_time": 27000000,
+      "stop_time": 30600000,
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.4
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      }
+    }
+  ],
+  "Saturday": [
+    {
+      "start_time": 18000000,
+      "stop_time": 26999999,
+      "start_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      }
+    },
+    {
+      "start_time": 27000000,
+      "stop_time": 30600000,
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.4
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      }
+    }
+  ],
+  "Sunday": [
+    {
+      "start_time": 18000000,
+      "stop_time": 26999999,
+      "start_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.2
+      }
+    },
+    {
+      "start_time": 27000000,
+      "stop_time": 30600000,
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.4
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      }
+    }
+  ]
+}
