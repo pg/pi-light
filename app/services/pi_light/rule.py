@@ -35,6 +35,10 @@ class Rule(BaseModel):
             raise ValueError("start_time equals stop_time")
         return v
 
+    @property
+    def hash(self):
+        return self.__hash__()
+
     def within(self, rule) -> bool:
         if self.day != rule.day:
             return False

@@ -5,6 +5,15 @@ from app.services.pi_light.rule import OverlapRegion, Rule
 
 
 class TestRule(TestCase):
+    def test_hash(self) -> None:
+        rule1 = Rule(day=Day.MONDAY, start_time=1, stop_time=8)
+        rule2 = Rule(day=Day.MONDAY, start_time=5, stop_time=8)
+        rule3 = Rule(day=Day.TUESDAY, start_time=5, stop_time=8)
+
+        self.assertEqual(hash(rule1), rule1.hash)
+        self.assertNotEqual(rule1.hash, rule2.hash)
+        self.assertNotEqual(rule2.hash, rule3.hash)
+
     def test_within(self) -> None:
         rule1 = Rule(day=Day.FRIDAY, start_time=1, stop_time=8)
         rule2 = Rule(day=Day.FRIDAY, start_time=5, stop_time=8)
