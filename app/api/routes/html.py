@@ -3,6 +3,7 @@ from datetime import datetime, time, timedelta
 import humanize
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import FileResponse
 from loguru import logger
 from pydantic import ValidationError
 
@@ -14,6 +15,11 @@ from app.services.pi_light.rule import Rule
 
 templates = Jinja2Templates(directory="app/templates")
 router = APIRouter()
+
+
+@router.get('/favicon.ico')
+async def favicon():
+    return FileResponse("app/templates/favicon.ico")
 
 
 @router.route("/", methods=["GET", "POST"])
