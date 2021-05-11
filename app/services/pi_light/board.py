@@ -7,7 +7,7 @@ from app.services.pi_light.color import Color
 
 class Board:
     pixels = neopixel.NeoPixel(
-        board.D10,
+        board.D21,
         get_settings().led_count,
         brightness=get_settings().default_brightness,
     )
