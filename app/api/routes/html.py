@@ -17,7 +17,7 @@ templates = Jinja2Templates(directory="app/templates")
 router = APIRouter()
 
 
-@router.get('/favicon.ico')
+@router.get("/favicon.ico")
 async def favicon():
     return FileResponse("app/templates/favicon.ico")
 
