@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 from enum import IntEnum
-from random import randint
+from random import randint, choice
 from typing import Optional
 
 from pydantic import BaseModel, Extra, Field, validator
 
 from app.services.pi_light.color import Color
+from app.services.pi_light.day import Day
 
 
 class OverlapRegion(IntEnum):
@@ -14,6 +15,7 @@ class OverlapRegion(IntEnum):
 
 
 class Rule(BaseModel):
+    day: Day = Day.MONDAY
     start_time: int = Field(0, ge=0, lt=86400000)  # Time is in msec within 24hr day
     stop_time: int = Field(86400000, gt=0, le=86400000)
     start_color: Color = Color()
@@ -34,9 +36,13 @@ class Rule(BaseModel):
         return v
 
     def within(self, rule) -> bool:
+        if self.day != rule.day:
+            return False
         return self.start_time >= rule.start_time and self.stop_time <= rule.stop_time
 
     def overlaps(self, rule, overlap_region: Optional[OverlapRegion] = None) -> bool:
+        if self.day != rule.day:
+            return False
         if overlap_region == OverlapRegion.HEAD:
             return self.start_time < rule.start_time <= self.stop_time
         elif overlap_region == OverlapRegion.TAIL:
@@ -67,6 +73,7 @@ class Rule(BaseModel):
         start_time = randint(0, 86400000)  # nosec
         stop_time = randint(start_time, 86400000)  # nosec
         return Rule(
+            day=choice(list(Day)),  # nosec
             start_time=start_time,
             stop_time=stop_time,
             start_color=Color.random(),  # nosec

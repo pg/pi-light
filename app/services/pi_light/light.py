@@ -29,8 +29,8 @@ class Light:
         self.rules = {day: [] for day in Day}
         self.board = Board()
 
-    def add_rule(self, rule: Rule, day: Day) -> None:
-        rules = self.rules[day]
+    def add_rule(self, rule: Rule) -> None:
+        rules = self.rules[rule.day]
         if not rules or rule.start_time > rules[-1].stop_time:
             return rules.append(rule)
         if rule.stop_time < rules[0].start_time:
@@ -46,6 +46,7 @@ class Light:
             # new rule is within existing rule
             elif rule.within(r):
                 new_head = Rule(
+                    day=rule.day,
                     start_time=r.start_time,
                     stop_time=rule.start_time - 1,
                     start_color=r.start_color,
@@ -54,6 +55,7 @@ class Light:
                 new_rules.append(new_head)
                 new_rules.append(rule)
                 new_tail = Rule(
+                    day=rule.day,
                     start_time=rule.stop_time + 1,
                     stop_time=r.stop_time,
                     start_color=r.start_color,
@@ -74,6 +76,7 @@ class Light:
                     new_rules.append(rule)
                     rule_added = True
                 new_rule = Rule(
+                    day=rule.day,
                     start_time=rule.stop_time + 1,
                     stop_time=r.stop_time,
                     start_color=r.start_color,
@@ -84,6 +87,7 @@ class Light:
             # new rule overlaps tail of existing rule
             elif rule.overlaps(r, OverlapRegion.TAIL):
                 new_rule = Rule(
+                    day=rule.day,
                     start_time=r.start_time,
                     stop_time=rule.start_time - 1,
                     start_color=r.start_color,
@@ -97,12 +101,12 @@ class Light:
             new_rules.append(r)
         if not rule_added:
             new_rules.append(rule)
-        self.rules[day] = new_rules
+        self.rules[rule.day] = new_rules
 
-    def remove_rule(self, rule: Rule, day: Day) -> None:
-        if rule not in self.rules[day]:
+    def remove_rule(self, rule: Rule) -> None:
+        if rule not in self.rules[rule.day]:
             raise RuleDoesNotExistError()
-        self.rules[day].remove(rule)
+        self.rules[rule.day].remove(rule)
 
     def remove_rule_by_hash(self, rule_hash: int) -> None:
         for day, rules in self.rules.items():
@@ -111,7 +115,7 @@ class Light:
                 rule_ix = hashed_day_rules.index(rule_hash)
             except ValueError:
                 continue
-            return self.remove_rule(rules[rule_ix], day)
+            return self.remove_rule(rules[rule_ix])
         raise RuleDoesNotExistError()
 
     def current_rule(self) -> Tuple[Optional[Rule], float]:

@@ -56,9 +56,9 @@ def rules(light: Light = Depends(get_light)) -> Dict[Day, List[Rule]]:
     response_description="The updated set of all rules",
 )
 def add_rule(
-    rule: Rule = Body(...), day: Day = Body(...), light: Light = Depends(get_light)
+    rule: Rule = Body(...), light: Light = Depends(get_light)
 ) -> Dict[Day, List[Rule]]:
-    light.add_rule(rule, day)
+    light.add_rule(rule)
     return light.rules
 
 
@@ -69,10 +69,10 @@ def add_rule(
     responses={400: {}},
 )
 def remove_rule(
-    rule: Rule = Body(...), day: Day = Body(...), light: Light = Depends(get_light)
+    rule: Rule = Body(...), light: Light = Depends(get_light)
 ) -> Dict[Day, List[Rule]]:
     try:
-        light.remove_rule(rule, day)
+        light.remove_rule(rule)
     except RuleDoesNotExistError:
         raise HTTPException(
             status_code=HTTP_400_BAD_REQUEST, detail="Rule does not exist"

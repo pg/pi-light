@@ -44,12 +44,12 @@ async def light_form(request: Request):
             )
             light.add_rule(
                 Rule(
+                    day=Day(form_data.get("day")),
                     start_time=start_time,
                     stop_time=stop_time,
                     start_color=start_color,
                     stop_color=stop_color,
-                ),
-                Day(form_data.get("day")),
+                )
             )
         except (ValidationError, ValueError) as e:
             logger.info(f"Issue parsing Add Rule form: {e}")
