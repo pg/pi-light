@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     environment: str = "dev"
     led_count: int = 33
     default_brightness: float = 0.5
-    sleep_ms: int = 500
+    sleep_ms: int = 2000
     default_rules: str = "default_rules.json"
 
     class Config:
