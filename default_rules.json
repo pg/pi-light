@@ -1,6 +1,7 @@
 {
   "Monday": [
     {
+      "day": "Monday",
       "start_time": 18000000,
       "stop_time": 26999999,
       "start_color": {
@@ -17,6 +18,7 @@
       }
     },
     {
+      "day": "Monday",
       "start_time": 27000000,
       "stop_time": 30600000,
       "start_color": {
@@ -35,6 +37,7 @@
   ],
   "Tuesday": [
     {
+      "day": "Tuesday",
       "start_time": 18000000,
       "stop_time": 26999999,
       "start_color": {
@@ -51,6 +54,7 @@
       }
     },
     {
+      "day": "Tuesday",
       "start_time": 27000000,
       "stop_time": 30600000,
       "start_color": {
@@ -69,6 +73,7 @@
   ],
   "Wednesday": [
     {
+      "day": "Wednesday",
       "start_time": 18000000,
       "stop_time": 26999999,
       "start_color": {
@@ -85,6 +90,7 @@
       }
     },
     {
+      "day": "Wednesday",
       "start_time": 27000000,
       "stop_time": 30600000,
       "start_color": {
@@ -103,6 +109,7 @@
   ],
   "Thursday": [
     {
+      "day": "Thursday",
       "start_time": 18000000,
       "stop_time": 26999999,
       "start_color": {
@@ -119,6 +126,7 @@
       }
     },
     {
+      "day": "Thursday",
       "start_time": 27000000,
       "stop_time": 30600000,
       "start_color": {
@@ -137,6 +145,7 @@
   ],
   "Friday": [
     {
+      "day": "Friday",
       "start_time": 18000000,
       "stop_time": 26999999,
       "start_color": {
@@ -153,6 +162,7 @@
       }
     },
     {
+      "day": "Friday",
       "start_time": 27000000,
       "stop_time": 30600000,
       "start_color": {
@@ -171,6 +181,7 @@
   ],
   "Saturday": [
     {
+      "day": "Saturday",
       "start_time": 18000000,
       "stop_time": 26999999,
       "start_color": {
@@ -187,6 +198,7 @@
       }
     },
     {
+      "day": "Saturday",
       "start_time": 27000000,
       "stop_time": 30600000,
       "start_color": {
@@ -205,6 +217,7 @@
   ],
   "Sunday": [
     {
+      "day": "Sunday",
       "start_time": 18000000,
       "stop_time": 26999999,
       "start_color": {
@@ -221,6 +234,7 @@
       }
     },
     {
+      "day": "Sunday",
       "start_time": 27000000,
       "stop_time": 30600000,
       "start_color": {
