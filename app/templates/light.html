@@ -5,9 +5,22 @@
     <title>Pi Light</title>
 </head>
 <body>
-<p><strong>Rule:</strong> {{ current_rule_str }} <span style="background-color: {{ current_color.hex }}; margin-left: 2px; margin-right: 5px; width: 15px; height: 15px; display: inline-block;"></span>Brightness: {{ current_color.brightness * 100 }}</p>
-<p><strong>Next Rule:</strong> {{ next_rule }}</p>
-<p><strong>Time Until Change:</strong> {{ time_until_change }}</p>
+    <form method="post">
+        <label for="mode">Mode:</label>
+        <select name="mode" id="mode">
+          <option value="Default" {{'selected' if mode == "Default"}}>Single Color</option>
+          <option value="Rules" {{'selected' if mode == "Rules"}}>Rules</option>
+          <option value="Rainbow" {{'selected' if mode == "Rainbow"}}>Rainbow</option>
+        </select>
+        <input type="color" name="mode_color"/>
+        <input type="range" name="mode_color_brightness" oninput="m1.value = this.value"/>
+        <output id="m1">50</output>
+        <input type="submit" name="set_mode" value="Set Mode">
+    </form>
+    <br>
+    <p><strong>Rule:</strong> {{ current_rule_str }} <span style="background-color: {{ current_color.hex }}; margin-left: 2px; margin-right: 5px; width: 15px; height: 15px; display: inline-block;"></span>Brightness: {{ current_color.brightness * 100 }}</p>
+    <p><strong>Next Rule:</strong> {{ next_rule }}</p>
+    <p><strong>Time Until Change:</strong> {{ time_until_change }}</p>
     <form method="post">
         {% for day, day_rules in rules.items() %}
         <fieldset>

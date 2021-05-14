@@ -31,11 +31,21 @@ class Light:
     def color(self):
         return self._color
 
+    @color.setter
+    def color(self, value):
+        self._color = value
+
     def state(self):
         return self._state
 
+    def set_state(self, state: State):
+        self._state = state
+
     def mode(self):
         return self._mode
+
+    def set_mode(self, mode: Mode):
+        self._mode = mode
 
     def run(self, settings: Settings = get_settings()) -> None:
         while self.state() == State.RUNNING:

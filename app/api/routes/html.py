@@ -10,6 +10,7 @@ from pydantic import ValidationError
 from app.core.light import get_light
 from app.services.pi_light.color import Color
 from app.services.pi_light.day import Day
+from app.services.pi_light.mode import Mode
 from app.services.pi_light.rule import Rule
 from app.services.pi_light.rule_manager import RuleDoesNotExistError
 
@@ -59,6 +60,14 @@ async def light_form(request: Request):
                 light.rule_manager.remove_rule_by_hash(int(rule_hash))
             except RuleDoesNotExistError as e:
                 logger.info(f"Issue removing rule: {rule_hash}, {e}")
+    elif "set_mode" in form_data.keys():
+        mode = Mode(form_data.get("mode"))
+        light.set_mode(mode)
+        if mode == Mode.DEFAULT:
+            light.color = Color.from_hex(
+                form_data.get("mode_color"),
+                brightness=int(form_data.get("mode_color_brightness")) / 100.0,
+            )
     return render_light_template(request, light)
 
 
@@ -78,6 +87,7 @@ def render_light_template(request, light):
         "light.html",
         {
             "request": request,
+            "mode": light.mode(),
             "current_rule_str": current_rule_str,
             "current_color": light.color,
             "next_rule": next_rule,

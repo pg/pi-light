@@ -7,12 +7,14 @@ from loguru import logger
 from app.core.config import Settings
 from app.core.light import get_light
 from app.core.settings import get_settings
+from app.services.pi_light.mode import Mode
 
 
 def create_start_app_handler(
     app: FastAPI, settings: Settings = get_settings()
 ) -> Callable:  # type: ignore
     async def start_app() -> None:
+        get_light().set_mode(Mode.RULES)
         get_light().rule_manager.load_rules(settings.default_rules)
         threading.Thread(target=get_light().run, daemon=True).start()
 
