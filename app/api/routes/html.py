@@ -79,7 +79,7 @@ def render_light_template(request, light):
         {
             "request": request,
             "current_rule_str": current_rule_str,
-            "current_color": light.color(),
+            "current_color": light.color,
             "next_rule": next_rule,
             "time_until_change": time_until_change,
             "rules": light.rule_manager.rules,

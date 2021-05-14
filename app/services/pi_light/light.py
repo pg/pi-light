@@ -17,15 +17,19 @@ class Light:
     _board: board.Board
     _state: State
     _mode: Mode
-    color: Color
+    _color: Color
     rule_manager: rule_manager.RuleManager
 
     def __init__(self):
         self._board = board.Board()
         self._state = State.RUNNING
         self._mode = Mode.DEFAULT
-        self.color = Color()
+        self._color = Color()
         self.rule_manager = rule_manager.RuleManager()
+
+    @property
+    def color(self):
+        return self._color
 
     def state(self):
         return self._state
@@ -40,6 +44,6 @@ class Light:
                 time.sleep(0.01)
                 continue
             if self.mode() == Mode.RULES:
-                self.color = self.rule_manager.current_color()
+                self._color = self.rule_manager.current_color()
             self._board.fill(self.color)
             time.sleep(settings.sleep_ms / 1000)
