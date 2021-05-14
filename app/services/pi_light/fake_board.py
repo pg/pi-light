@@ -4,6 +4,15 @@ from app.services.pi_light.color import Color
 
 
 class Board:
+    rainbow_step_num = 0
+
     @classmethod
-    def display(cls, color: Color) -> None:
-        logger.debug(f"Current Board Color: {color}")
+    def fill(cls, color: Color) -> None:
+        logger.debug(f"Fill Board Color: {color}")
+
+    @classmethod
+    def rainbow_step(cls) -> None:
+        cls.rainbow_step_num += 1
+        if cls.rainbow_step_num == 255:
+            cls.rainbow_step_num = 0
+        logger.debug(f"Rainbow Step: {cls.rainbow_step_num}")

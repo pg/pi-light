@@ -2,16 +2,16 @@ from datetime import datetime, time, timedelta
 
 import humanize
 from fastapi import APIRouter, Request
-from fastapi.templating import Jinja2Templates
 from fastapi.responses import FileResponse
+from fastapi.templating import Jinja2Templates
 from loguru import logger
 from pydantic import ValidationError
 
 from app.core.light import get_light
 from app.services.pi_light.color import Color
 from app.services.pi_light.day import Day
-from app.services.pi_light.light import RuleDoesNotExistError
 from app.services.pi_light.rule import Rule
+from app.services.pi_light.rule_manager import RuleDoesNotExistError
 
 templates = Jinja2Templates(directory="app/templates")
 router = APIRouter()
@@ -42,7 +42,7 @@ async def light_form(request: Request):
                 form_data.get("stop_color"),
                 brightness=int(form_data.get("stop_color_brightness")) / 100.0,
             )
-            light.add_rule(
+            light.rule_manager.add_rule(
                 Rule(
                     day=Day(form_data.get("day")),
                     start_time=start_time,
@@ -56,19 +56,18 @@ async def light_form(request: Request):
     elif "remove_rule" in form_data.keys():
         for rule_hash in form_data.getlist("rule_hashes"):
             try:
-                light.remove_rule_by_hash(int(rule_hash))
+                light.rule_manager.remove_rule_by_hash(int(rule_hash))
             except RuleDoesNotExistError as e:
                 logger.info(f"Issue removing rule: {rule_hash}, {e}")
     return render_light_template(request, light)
 
 
 def render_light_template(request, light):
+    light_current_rule = light.rule_manager.current_rule()[0]
     current_rule_str = (
-        light.current_rule()[0].time_interval()
-        if light.current_rule()[0]
-        else "No Active Rule"
+        light_current_rule.time_interval() if light_current_rule else "No Active Rule"
     )
-    light_next_rule = light.next_rule()
+    light_next_rule = light.rule_manager.next_rule()
     next_rule = (
         light_next_rule[0].time_interval()
         if light_next_rule[0]
@@ -83,7 +82,7 @@ def render_light_template(request, light):
             "current_color": light.color(),
             "next_rule": next_rule,
             "time_until_change": time_until_change,
-            "rules": light.rules,
+            "rules": light.rule_manager.rules,
         },
     )
 

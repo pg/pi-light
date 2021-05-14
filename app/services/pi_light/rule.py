@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from enum import IntEnum
-from random import randint, choice
+from random import choice, randint
 from typing import Optional
 
 from pydantic import BaseModel, Extra, Field, validator
