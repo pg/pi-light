@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "pi-light"
+version = "0.1.0"
+description = "A customizable Raspberry Pi Zero W nightlight"
+authors = ["Peter Gebhard <peter@petergebhard.com>"]
+license = "GNU GPLv3"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.78"
+uvicorn = "^0.17"
+python-dotenv = "^0.20"
+Jinja2 = "^3.1"
+loguru = "^0.6"
+adafruit-circuitpython-neopixel = "^6.3"
+humanize = "^4.1"
+
+[tool.poetry.dev-dependencies]
+black = "*"
+flake8 = "*"
+isort = "*"
+mypy = "*"
+bandit = "*"
+pre-commit = "*"
+pytest = "*"
+pytest-cov = "*"
+pylint = "*"
+testslide = "*"
+requests = "*"
+types-requests = "*"
+time-machine = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

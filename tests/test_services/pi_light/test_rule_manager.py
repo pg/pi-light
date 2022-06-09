@@ -1,11 +1,5 @@
 from datetime import datetime
-
-from app.services.pi_light.rule_manager import RuleDoesNotExistError, RuleManager
-
-try:
-    from zoneinfo import ZoneInfo
-except ImportError:
-    from backports.zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo
 
 import pytest
 import time_machine
@@ -15,6 +9,7 @@ from testslide import TestCase
 from app.services.pi_light.color import Color
 from app.services.pi_light.day import Day
 from app.services.pi_light.rule import Rule
+from app.services.pi_light.rule_manager import RuleDoesNotExistError, RuleManager
 
 
 class TestRuleManager(TestCase):

@@ -1,5 +1,9 @@
 # pi-light
-A customizable Raspberry Pi Zero nightlight
+A customizable Raspberry Pi Zero W nightlight
+
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ### What is this repository for? ###
 
@@ -15,6 +19,13 @@ A customizable Raspberry Pi Zero nightlight
 * Database configuration
 * How to run tests
 * Deployment instructions
+
+```bash
+poetry install
+poetry run python -m app.main
+```
+
+... update .env file to pull in ENVIRONMENT=prod...
 
 ### Contribution guidelines ###
 
