@@ -1,13 +1,13 @@
 import board
-import neopixel
+import neopixel_spi as neopixel
 
 from app.core.settings import get_settings
 from app.services.pi_light.color import Color
 
 
 class Board:
-    pixels = neopixel.NeoPixel(
-        board.D21,
+    pixels = neopixel.NeoPixel_SPI(
+        board.SPI(),
         get_settings().led_count,
         brightness=get_settings().default_brightness,
     )

@@ -24,11 +24,11 @@ A customizable Raspberry Pi Zero W nightlight
 
 [Raspberry Pi Zero W Pinout](https://cdn.sparkfun.com/assets/learn_tutorials/6/7/6/PiZero_1.pdf)
 
-Plug in NeoPixel strip to 5V (pin 2), GND (pin 6), and GPIO D21 (pin 40)
+Plug in NeoPixel strip to 5V (pin 2), GND (pin 6), and MOSI (pin 19)
 
 ```bash
 poetry install
-poetry run python -m app.main
+ENVIRONMENT=prod poetry run python -m app.main
 ```
 
 ... update .env file to pull in ENVIRONMENT=prod...

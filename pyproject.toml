@@ -12,7 +12,7 @@ uvicorn = "^0.17"
 python-dotenv = "^0.20"
 Jinja2 = "^3.1"
 loguru = "^0.6"
-adafruit-circuitpython-neopixel = "^6.3"
+adafruit-circuitpython-neopixel-spi = "^1.0"
 humanize = "^4.1"
 python-multipart = "^0.0.5"
 

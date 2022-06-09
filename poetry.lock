@@ -14,7 +14,7 @@ pyftdi = ">=0.40.0"
 
 [[package]]
 name = "adafruit-circuitpython-busdevice"
-version = "5.1.9"
+version = "5.1.10"
 description = "CircuitPython bus device classes to manage bus sharing."
 category = "main"
 optional = false
@@ -25,20 +25,21 @@ Adafruit-Blinka = ">=7.0.0"
 adafruit-circuitpython-typing = "*"
 
 [[package]]
-name = "adafruit-circuitpython-neopixel"
-version = "6.3.1"
-description = "CircuitPython library for NeoPixel LEDs."
+name = "adafruit-circuitpython-neopixel-spi"
+version = "1.0.2"
+description = "SPI driven CircuitPython driver for neopixels."
 category = "main"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
 Adafruit-Blinka = "*"
+adafruit-circuitpython-busdevice = "*"
 adafruit-circuitpython-pixelbuf = "*"
 
 [[package]]
 name = "adafruit-circuitpython-pixelbuf"
-version = "1.1.4"
+version = "1.1.5"
 description = "A pure Python implementation of adafruit_pixelbuf for smaller boards."
 category = "main"
 optional = false
@@ -963,20 +964,20 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "78ed4c6251087e09935b6570c8842a888990c75362352604d88d1bd52ca7dcb0"
+content-hash = "4d0c395a52b63b2ecad46d1d1af72fd786fc917952f6b4c9235d3a8f926e3e82"
 
 [metadata.files]
 adafruit-blinka = [
     {file = "Adafruit-Blinka-8.0.1.tar.gz", hash = "sha256:0762406748119adca5c68b48c8d32bcd6c1f13769e65e875c3f2e60c558c5308"},
 ]
 adafruit-circuitpython-busdevice = [
-    {file = "adafruit-circuitpython-busdevice-5.1.9.tar.gz", hash = "sha256:1e3e70300b5af5dee71960955469ef1984aa194c0236c7abd45ece85e20ba2f3"},
+    {file = "adafruit-circuitpython-busdevice-5.1.10.tar.gz", hash = "sha256:228df23033f3259b42b998701699293a3cdfd5599fa1cfb13557ad415bab8ab5"},
 ]
-adafruit-circuitpython-neopixel = [
-    {file = "adafruit-circuitpython-neopixel-6.3.1.tar.gz", hash = "sha256:43685678989021097f96133618417f1d913f4597b30c46d2bf9132a93f0600db"},
+adafruit-circuitpython-neopixel-spi = [
+    {file = "adafruit-circuitpython-neopixel-spi-1.0.2.tar.gz", hash = "sha256:9adde3ad7702ecdb866098a78b04d9af7c07c03faee90f8bfa0d74ee54cfbd74"},
 ]
 adafruit-circuitpython-pixelbuf = [
-    {file = "adafruit-circuitpython-pixelbuf-1.1.4.tar.gz", hash = "sha256:0408908005432a9fcd7218b06ee581590318df01295188a0f2894a4d4f72393b"},
+    {file = "adafruit-circuitpython-pixelbuf-1.1.5.tar.gz", hash = "sha256:66e263b39d7196a17b107a194274d78971cd0d241fa0ec6cdf46694d09bf66ff"},
 ]
 adafruit-circuitpython-typing = [
     {file = "adafruit-circuitpython-typing-1.7.1.tar.gz", hash = "sha256:30051d7f2a5eeaed67d72cbae5a627fab7be97f2dede2f47d1385d7d8dee2474"},
