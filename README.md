@@ -20,6 +20,12 @@ A customizable Raspberry Pi Zero W nightlight
 * How to run tests
 * Deployment instructions
 
+[Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w)
+
+[Raspberry Pi Zero W Pinout](https://cdn.sparkfun.com/assets/learn_tutorials/6/7/6/PiZero_1.pdf)
+
+Plug in NeoPixel strip to 5V (pin 2), GND (pin 6), and GPIO D21 (pin 40)
+
 ```bash
 poetry install
 poetry run python -m app.main
