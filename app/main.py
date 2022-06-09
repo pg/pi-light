@@ -2,7 +2,6 @@ import uvicorn as uvicorn
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException, RequestValidationError
 from pydantic import ValidationError
-from starlette.middleware.cors import CORSMiddleware
 
 from app.api.errors.http_error import http_error_handler
 from app.api.errors.validation_error import http422_error_handler
@@ -16,14 +15,6 @@ from app.core.settings import get_settings
 def get_application(settings: Settings = get_settings()) -> FastAPI:
     application = FastAPI(
         title=settings.app_name, debug=settings.debug, version=settings.version
-    )
-
-    application.add_middleware(
-        CORSMiddleware,
-        allow_origins=settings.allowed_hosts or ["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
     )
 
     application.add_event_handler("startup", create_start_app_handler(application))
