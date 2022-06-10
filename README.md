@@ -28,6 +28,7 @@ Plug in NeoPixel strip to 5V (pin 2), GND (pin 6), and MOSI (pin 19)
 
 ```bash
 poetry install
+poetry add RPi.GPIO
 ENVIRONMENT=prod poetry run python -m app.main
 ```
 

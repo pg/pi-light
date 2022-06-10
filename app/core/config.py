@@ -19,8 +19,10 @@ class Settings(BaseSettings):
     environment: str = "dev"
     led_count: int = 33
     default_brightness: float = 0.5
+    rainbow_sleep_ms: int = 200
     sleep_ms: int = 2000
     default_rules: str = "default_rules.json"
+    time_format: str = "%A, %B %-d, %-I:%M:%S %p"
 
     class Config:
         env = os.getenv("ENVIRONMENT", "dev")

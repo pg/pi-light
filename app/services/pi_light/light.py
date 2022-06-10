@@ -51,7 +51,7 @@ class Light:
         while self.state() == State.RUNNING:
             if self.mode() == Mode.RAINBOW:
                 self._board.rainbow_step()
-                time.sleep(0.01)
+                time.sleep(settings.rainbow_sleep_ms / 1000)
                 continue
             if self.mode() == Mode.RULES:
                 self._color = self.rule_manager.current_color()

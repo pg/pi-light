@@ -7,9 +7,12 @@ from fastapi.templating import Jinja2Templates
 from loguru import logger
 from pydantic import ValidationError
 
+from app.core.config import Settings
 from app.core.light import get_light
+from app.core.settings import get_settings
 from app.services.pi_light.color import Color
 from app.services.pi_light.day import Day
+from app.services.pi_light.light import Light
 from app.services.pi_light.mode import Mode
 from app.services.pi_light.rule import Rule
 from app.services.pi_light.rule_manager import RuleDoesNotExistError
@@ -71,7 +74,7 @@ async def light_form(request: Request):
     return render_light_template(request, light)
 
 
-def render_light_template(request, light):
+def render_light_template(request, light: Light, settings: Settings = get_settings()):
     light_current_rule = light.rule_manager.current_rule()[0]
     current_rule_str = (
         light_current_rule.time_interval() if light_current_rule else "No Active Rule"
@@ -87,6 +90,7 @@ def render_light_template(request, light):
         "light.html",
         {
             "request": request,
+            "current_time": datetime.now().strftime(settings.time_format),
             "mode": light.mode(),
             "current_rule_str": current_rule_str,
             "current_color": light.color,
