@@ -7,6 +7,7 @@ from loguru import logger
 from app.services.pi_light.color import Color
 from app.services.pi_light.day import Day
 from app.services.pi_light.rule import OverlapRegion, Rule
+from app.services.simple_time import SimpleTime
 
 
 class RuleDoesNotExistError(Exception):
@@ -38,7 +39,7 @@ class RuleManager:
                 new_head = Rule(
                     day=rule.day,
                     start_time=r.start_time,
-                    stop_time=rule.start_time - 1,
+                    stop_time=(SimpleTime.from_time(rule.start_time) - 1).time(),
                     start_color=r.start_color,
                     stop_color=r.stop_color,
                 )
@@ -46,7 +47,7 @@ class RuleManager:
                 new_rules.append(rule)
                 new_tail = Rule(
                     day=rule.day,
-                    start_time=rule.stop_time + 1,
+                    start_time=(SimpleTime.from_time(rule.stop_time) + 1).time(),
                     stop_time=r.stop_time,
                     start_color=r.start_color,
                     stop_color=r.stop_color,
@@ -67,7 +68,7 @@ class RuleManager:
                     rule_added = True
                 new_rule = Rule(
                     day=rule.day,
-                    start_time=rule.stop_time + 1,
+                    start_time=(SimpleTime.from_time(rule.stop_time) + 1).time(),
                     stop_time=r.stop_time,
                     start_color=r.start_color,
                     stop_color=r.stop_color,
@@ -79,7 +80,7 @@ class RuleManager:
                 new_rule = Rule(
                     day=rule.day,
                     start_time=r.start_time,
-                    stop_time=rule.start_time - 1,
+                    stop_time=(SimpleTime.from_time(rule.start_time) - 1).time(),
                     start_color=r.start_color,
                     stop_color=r.stop_color,
                 )
@@ -109,63 +110,73 @@ class RuleManager:
         raise RuleDoesNotExistError()
 
     def current_rule(self) -> Tuple[Optional[Rule], float]:
-        now = datetime.now()
-        day = Day(now.strftime("%A"))
-        msec = int(
-            (
-                now - now.replace(hour=0, minute=0, second=0, microsecond=0)
-            ).total_seconds()
-            * 1000
-        )
+        dt_now = datetime.now()
+        day = Day(dt_now.strftime("%A"))
         for r in self.rules[day]:
-            if r.start_time <= msec <= r.stop_time:
-                percentage = (msec - r.start_time) / (r.stop_time - r.start_time)
+            now = dt_now.time()
+            if r.start_time <= now <= r.stop_time:
+                st_now = SimpleTime.from_time(now)
+                start = SimpleTime.from_time(r.start_time)
+                stop = SimpleTime.from_time(r.stop_time)
+                percentage = (st_now.total_seconds() - start.total_seconds()) / (
+                    stop.total_seconds() - start.total_seconds()
+                )
                 return r, percentage
-
         return None, 0.0
 
     def next_rule(self) -> Tuple[Optional[Rule], timedelta]:
-        now = datetime.now()
-        day = Day(now.strftime("%A"))
-        msec = int(
-            (
-                now - now.replace(hour=0, minute=0, second=0, microsecond=0)
-            ).total_seconds()
-            * 1000
-        )
+        dt_now = datetime.now()
+        day = Day(dt_now.strftime("%A"))
         for index, r in enumerate(self.rules[day]):
+            now = dt_now.time()
+            st_now = SimpleTime.from_time(now)
+            start = SimpleTime.from_time(r.start_time)
+            stop = SimpleTime.from_time(r.stop_time)
             # if before first rule
-            if msec < r.start_time:
-                return r, timedelta(seconds=round((r.start_time - msec) / 1000.0))
+            if now < r.start_time:
+                return r, timedelta(
+                    seconds=start.total_seconds() - st_now.total_seconds()
+                )
             # if checking last rule
             if index + 1 == len(self.rules[day]):
-                if r.start_time <= msec <= r.stop_time:
+                if r.start_time <= now <= r.stop_time:
                     return (
                         None,
-                        timedelta(seconds=round((r.stop_time - msec) / 1000.0)),
+                        timedelta(
+                            seconds=stop.total_seconds() - st_now.total_seconds()
+                        ),
                     )
                 return None, timedelta(days=1)
             next_rule = self.rules[day][index + 1]
-            if msec > next_rule.start_time:
+            if now > next_rule.start_time:
                 continue
             # if in a rule
-            if r.start_time <= msec <= r.stop_time:
+            if r.start_time <= now <= r.stop_time:
                 # if next rule is immediate, return it
-                if r.stop_time + 1 == next_rule.start_time:
+                if (
+                    SimpleTime.from_time(r.stop_time) + 1
+                ).time() == next_rule.start_time:
                     return (
                         next_rule,
-                        timedelta(seconds=round((r.stop_time - msec) / 1000.0)),
+                        timedelta(
+                            seconds=stop.total_seconds() - st_now.total_seconds()
+                        ),
                     )
                 # if next rule is not immediate, return None
                 else:
                     return (
                         None,
-                        timedelta(seconds=round((r.stop_time - msec) / 1000.0)),
+                        timedelta(
+                            seconds=stop.total_seconds() - st_now.total_seconds()
+                        ),
                     )
             else:
+                next_start = SimpleTime.from_time(next_rule.start_time)
                 return (
                     next_rule,
-                    timedelta(seconds=round((next_rule.start_time - msec) / 1000.0)),
+                    timedelta(
+                        seconds=next_start.total_seconds() - st_now.total_seconds()
+                    ),
                 )
         return None, timedelta(days=1)
 

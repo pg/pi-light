@@ -1,12 +1,13 @@
-from datetime import datetime, timedelta
+from datetime import time
 from enum import IntEnum
 from random import choice, randint
 from typing import Optional
 
-from pydantic import BaseModel, Extra, Field, validator
+from pydantic import BaseModel, Extra, validator
 
 from app.services.pi_light.color import Color
 from app.services.pi_light.day import Day
+from app.services.simple_time import SimpleTime
 
 
 class OverlapRegion(IntEnum):
@@ -16,8 +17,8 @@ class OverlapRegion(IntEnum):
 
 class Rule(BaseModel):
     day: Day = Day.MONDAY
-    start_time: int = Field(0, ge=0, lt=86400000)  # Time is in msec within 24hr day
-    stop_time: int = Field(86400000, gt=0, le=86400000)
+    start_time: time = time(hour=0, minute=0, second=0)
+    stop_time: time = time(hour=23, minute=59, second=59)
     start_color: Color = Color()
     stop_color: Color = Color()
 
@@ -59,27 +60,18 @@ class Rule(BaseModel):
             )
 
     def time_interval(self):
-        d = datetime(2020, 1, 1)
-        start_str = (
-            (d + timedelta(microseconds=self.start_time * 1000))
-            .strftime("%I:%M:%S %p")
-            .lstrip("0")
-        )
-        stop_str = (
-            (d + timedelta(microseconds=self.stop_time * 1000))
-            .strftime("%I:%M:%S %p")
-            .lstrip("0")
-        )
+        start_str = self.start_time.strftime("%I:%M:%S %p").lstrip("0")
+        stop_str = self.stop_time.strftime("%I:%M:%S %p").lstrip("0")
         return f"{start_str} - {stop_str}"
 
     @staticmethod
     def random():
-        start_time = randint(0, 86400000)  # nosec
-        stop_time = randint(start_time, 86400000)  # nosec
+        start_time = randint(0, 86400)  # nosec
+        stop_time = randint(start_time, 86400)  # nosec
         return Rule(
             day=choice(list(Day)),  # nosec
-            start_time=start_time,
-            stop_time=stop_time,
+            start_time=SimpleTime.from_seconds(start_time).time(),
+            stop_time=SimpleTime.from_seconds(stop_time).time(),
             start_color=Color.random(),  # nosec
             stop_color=Color.random(),  # nosec
         )

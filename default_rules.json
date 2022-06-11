@@ -2,252 +2,371 @@
   "Monday": [
     {
       "day": "Monday",
-      "start_time": 18000000,
-      "stop_time": 26999999,
+      "start_time": "00:00:00",
+      "stop_time": "07:00:00",
       "start_color": {
         "r": 255,
         "g": 0,
         "b": 60,
-        "brightness": 0.2
+        "brightness": 0.03
       },
       "stop_color": {
         "r": 255,
         "g": 0,
         "b": 60,
+        "brightness": 0.03
+      }
+    },
+    {
+      "day": "Monday",
+      "start_time": "07:00:01",
+      "stop_time": "08:00:00",
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
         "brightness": 0.2
       }
     },
     {
       "day": "Monday",
-      "start_time": 27000000,
-      "stop_time": 30600000,
+      "start_time": "19:20:00",
+      "stop_time": "23:59:59",
       "start_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.4
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       },
       "stop_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       }
     }
   ],
   "Tuesday": [
     {
       "day": "Tuesday",
-      "start_time": 18000000,
-      "stop_time": 26999999,
+      "start_time": "00:00:00",
+      "stop_time": "07:00:00",
       "start_color": {
         "r": 255,
         "g": 0,
         "b": 60,
-        "brightness": 0.2
+        "brightness": 0.03
       },
       "stop_color": {
         "r": 255,
         "g": 0,
         "b": 60,
+        "brightness": 0.03
+      }
+    },
+    {
+      "day": "Tuesday",
+      "start_time": "07:00:01",
+      "stop_time": "08:00:00",
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
         "brightness": 0.2
       }
     },
     {
       "day": "Tuesday",
-      "start_time": 27000000,
-      "stop_time": 30600000,
+      "start_time": "19:20:00",
+      "stop_time": "23:59:59",
       "start_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.4
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       },
       "stop_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       }
     }
   ],
   "Wednesday": [
     {
       "day": "Wednesday",
-      "start_time": 18000000,
-      "stop_time": 26999999,
+      "start_time": "00:00:00",
+      "stop_time": "07:00:00",
       "start_color": {
         "r": 255,
         "g": 0,
         "b": 60,
-        "brightness": 0.2
+        "brightness": 0.03
       },
       "stop_color": {
         "r": 255,
         "g": 0,
         "b": 60,
+        "brightness": 0.03
+      }
+    },
+    {
+      "day": "Wednesday",
+      "start_time": "07:00:01",
+      "stop_time": "08:00:00",
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
         "brightness": 0.2
       }
     },
     {
       "day": "Wednesday",
-      "start_time": 27000000,
-      "stop_time": 30600000,
+      "start_time": "19:20:00",
+      "stop_time": "23:59:59",
       "start_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.4
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       },
       "stop_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       }
     }
   ],
   "Thursday": [
     {
       "day": "Thursday",
-      "start_time": 18000000,
-      "stop_time": 26999999,
+      "start_time": "00:00:00",
+      "stop_time": "07:00:00",
       "start_color": {
         "r": 255,
         "g": 0,
         "b": 60,
-        "brightness": 0.2
+        "brightness": 0.03
       },
       "stop_color": {
         "r": 255,
         "g": 0,
         "b": 60,
+        "brightness": 0.03
+      }
+    },
+    {
+      "day": "Thursday",
+      "start_time": "07:00:01",
+      "stop_time": "08:00:00",
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
         "brightness": 0.2
       }
     },
     {
       "day": "Thursday",
-      "start_time": 27000000,
-      "stop_time": 30600000,
+      "start_time": "19:20:00",
+      "stop_time": "23:59:59",
       "start_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.4
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       },
       "stop_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       }
     }
   ],
   "Friday": [
     {
       "day": "Friday",
-      "start_time": 18000000,
-      "stop_time": 26999999,
+      "start_time": "00:00:00",
+      "stop_time": "07:00:00",
       "start_color": {
         "r": 255,
         "g": 0,
         "b": 60,
-        "brightness": 0.2
+        "brightness": 0.03
       },
       "stop_color": {
         "r": 255,
         "g": 0,
         "b": 60,
+        "brightness": 0.03
+      }
+    },
+    {
+      "day": "Friday",
+      "start_time": "07:00:01",
+      "stop_time": "08:00:00",
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
         "brightness": 0.2
       }
     },
     {
       "day": "Friday",
-      "start_time": 27000000,
-      "stop_time": 30600000,
+      "start_time": "19:20:00",
+      "stop_time": "23:59:59",
       "start_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.4
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       },
       "stop_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       }
     }
   ],
   "Saturday": [
     {
       "day": "Saturday",
-      "start_time": 18000000,
-      "stop_time": 26999999,
+      "start_time": "00:00:00",
+      "stop_time": "07:30:00",
       "start_color": {
         "r": 255,
         "g": 0,
         "b": 60,
-        "brightness": 0.2
+        "brightness": 0.03
       },
       "stop_color": {
         "r": 255,
         "g": 0,
         "b": 60,
+        "brightness": 0.03
+      }
+    },
+    {
+      "day": "Saturday",
+      "start_time": "07:30:01",
+      "stop_time": "08:30:00",
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
         "brightness": 0.2
       }
     },
     {
       "day": "Saturday",
-      "start_time": 27000000,
-      "stop_time": 30600000,
+      "start_time": "19:20:00",
+      "stop_time": "23:59:59",
       "start_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.4
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       },
       "stop_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       }
     }
   ],
   "Sunday": [
     {
       "day": "Sunday",
-      "start_time": 18000000,
-      "stop_time": 26999999,
+      "start_time": "00:00:00",
+      "stop_time": "07:30:00",
       "start_color": {
         "r": 255,
         "g": 0,
         "b": 60,
-        "brightness": 0.2
+        "brightness": 0.03
       },
       "stop_color": {
         "r": 255,
         "g": 0,
         "b": 60,
+        "brightness": 0.03
+      }
+    },
+    {
+      "day": "Sunday",
+      "start_time": "07:30:01",
+      "stop_time": "08:30:00",
+      "start_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
+        "brightness": 0.2
+      },
+      "stop_color": {
+        "r": 0,
+        "g": 255,
+        "b": 106,
         "brightness": 0.2
       }
     },
     {
       "day": "Sunday",
-      "start_time": 27000000,
-      "stop_time": 30600000,
+      "start_time": "19:20:00",
+      "stop_time": "23:59:59",
       "start_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.4
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       },
       "stop_color": {
-        "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "r": 255,
+        "g": 0,
+        "b": 60,
+        "brightness": 0.03
       }
     }
   ]

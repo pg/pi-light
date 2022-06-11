@@ -250,11 +250,11 @@ class TestRuleManager(TestCase):
             self.rule_manager.add_rule(Rule(start_time=30, stop_time=8))
 
     def test_add_invalid_rule_bad_start_time(self) -> None:
-        with pytest.raises(ValidationError):
+        with pytest.raises(OverflowError):
             self.rule_manager.add_rule(Rule(start_time=-1, stop_time=8))
 
     def test_add_invalid_rule_bad_stop_time(self) -> None:
-        with pytest.raises(ValidationError):
+        with pytest.raises(OverflowError):
             self.rule_manager.add_rule(Rule(start_time=20, stop_time=-1))
 
     def test_add_invalid_rule_bad_color(self) -> None:
@@ -263,8 +263,8 @@ class TestRuleManager(TestCase):
 
     def test_remove_rule(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=4000, stop_time=6000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:4", stop_time="0:0:6")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -274,9 +274,9 @@ class TestRuleManager(TestCase):
 
     def test_remove_rule_does_not_exist(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=4000, stop_time=6000)
-        rule3 = Rule(day=day, start_time=9000, stop_time=12000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:4", stop_time="0:0:6")
+        rule3 = Rule(day=day, start_time="0:0:9", stop_time="0:0:12")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -289,9 +289,9 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_remove_rule_by_hash(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=4000, stop_time=6000)
-        rule3 = Rule(day=day, start_time=9000, stop_time=90000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:4", stop_time="0:0:6")
+        rule3 = Rule(day=day, start_time="0:0:9", stop_time="0:0:59")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -304,9 +304,9 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_remove_rule_by_hash_rule_not_found(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=4000, stop_time=6000)
-        rule3 = Rule(day=day, start_time=9000, stop_time=90000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:4", stop_time="0:0:6")
+        rule3 = Rule(day=day, start_time="0:0:9", stop_time="0:0:59")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -317,9 +317,9 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_current_rule(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=4000, stop_time=6000)
-        rule3 = Rule(day=day, start_time=8000, stop_time=20000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:4", stop_time="0:0:6")
+        rule3 = Rule(day=day, start_time="0:0:8", stop_time="0:0:20")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -333,8 +333,8 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 12, 0, 5, tzinfo=chicago_tz))
     def test_current_rule_default(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=8000, stop_time=20000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:8", stop_time="0:0:20")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -347,9 +347,9 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_next_rule_in_rule(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=4000, stop_time=5999)
-        rule3 = Rule(day=day, start_time=6000, stop_time=20000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:4", stop_time="0:0:5")
+        rule3 = Rule(day=day, start_time="0:0:6", stop_time="0:0:20")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -363,9 +363,9 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 8, tzinfo=chicago_tz))
     def test_next_rule_in_last_rule(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=4000, stop_time=5999)
-        rule3 = Rule(day=day, start_time=6000, stop_time=20000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:4", stop_time="0:0:5")
+        rule3 = Rule(day=day, start_time="0:0:6", stop_time="0:0:20")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -379,9 +379,9 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 15, tzinfo=chicago_tz))
     def test_next_rule_in_rule_then_gap(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=8000, stop_time=20000)
-        rule3 = Rule(day=day, start_time=30000, stop_time=200000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:8", stop_time="0:0:20")
+        rule3 = Rule(day=day, start_time="0:0:30", stop_time="0:3:20")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -395,8 +395,8 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 5, tzinfo=chicago_tz))
     def test_next_rule_not_in_rule(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=0, stop_time=2000)
-        rule2 = Rule(day=day, start_time=8000, stop_time=20000)
+        rule1 = Rule(day=day, start_time="0:0:0", stop_time="0:0:2")
+        rule2 = Rule(day=day, start_time="0:0:8", stop_time="0:0:20")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -409,8 +409,8 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 0, 0, 1, tzinfo=chicago_tz))
     def test_next_rule_not_in_rule2(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=3000, stop_time=5000)
-        rule2 = Rule(day=day, start_time=8000, stop_time=20000)
+        rule1 = Rule(day=day, start_time="0:0:3", stop_time="0:0:5")
+        rule2 = Rule(day=day, start_time="0:0:8", stop_time="0:0:20")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -423,8 +423,8 @@ class TestRuleManager(TestCase):
     @time_machine.travel(datetime(2021, 4, 27, 1, 0, 0, tzinfo=chicago_tz))
     def test_next_rule_not_in_rule_none_left(self) -> None:
         day = Day(datetime.now().strftime("%A"))
-        rule1 = Rule(day=day, start_time=3000, stop_time=5000)
-        rule2 = Rule(day=day, start_time=8000, stop_time=20000)
+        rule1 = Rule(day=day, start_time="0:0:3", stop_time="0:0:5")
+        rule2 = Rule(day=day, start_time="0:0:8", stop_time="0:0:20")
 
         self.rule_manager.add_rule(rule1)
         self.rule_manager.add_rule(rule2)
@@ -465,16 +465,21 @@ class TestRuleManager(TestCase):
 
         self.rule_manager.add_rule(rule)
 
-        self.assertEqual(expected_color, self.rule_manager.current_color())
+        self.assertEqual(expected_color.r, self.rule_manager.current_color().r)
+        self.assertEqual(expected_color.g, self.rule_manager.current_color().g)
+        self.assertEqual(expected_color.b, self.rule_manager.current_color().b)
+        self.assertAlmostEqual(
+            expected_color.brightness, self.rule_manager.current_color().brightness, 4
+        )
 
     @time_machine.travel(datetime(2021, 4, 27, 13, 2, 3, tzinfo=chicago_tz))
     def test_color_multiple_rules(self) -> None:
         day = Day(datetime.now().strftime("%A"))
         color1 = Color(r=1, g=2, b=4, brightness=0.5)
-        rule1 = Rule(day=day, stop_time=43200000, start_color=color1, stop_color=color1)
+        rule1 = Rule(day=day, stop_time="12:0:0", start_color=color1, stop_color=color1)
         color2 = Color(r=100, g=200, b=150, brightness=1)
         rule2 = Rule(
-            day=day, start_time=43200001, start_color=color2, stop_color=color2
+            day=day, start_time="12:0:1", start_color=color2, stop_color=color2
         )
 
         self.rule_manager.add_rule(rule1)

@@ -90,9 +90,9 @@ class TestRule(TestCase):
         self.assertFalse(rule6.overlaps(rule5, OverlapRegion.TAIL))
 
     def test_time_interval(self) -> None:
-        rule1 = Rule(start_time=0, stop_time=60000)
-        rule2 = Rule(start_time=3600000, stop_time=7200000)
-        rule3 = Rule(start_time=46800000, stop_time=50400000)
+        rule1 = Rule(start_time="0:0:0", stop_time="0:1:0")
+        rule2 = Rule(start_time="1:0:0", stop_time="2:0:0")
+        rule3 = Rule(start_time="13:0:0", stop_time="14:0:0")
 
         self.assertEqual("12:00:00 AM - 12:01:00 AM", rule1.time_interval())
         self.assertEqual("1:00:00 AM - 2:00:00 AM", rule2.time_interval())
