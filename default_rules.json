@@ -5,16 +5,16 @@
       "start_time": "00:00:00",
       "stop_time": "07:00:00",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     },
     {
@@ -23,32 +23,32 @@
       "stop_time": "08:00:00",
       "start_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       },
       "stop_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       }
     },
     {
       "day": "Monday",
-      "start_time": "19:20:00",
+      "start_time": "20:00:00",
       "stop_time": "23:59:59",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     }
   ],
@@ -58,16 +58,16 @@
       "start_time": "00:00:00",
       "stop_time": "07:00:00",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     },
     {
@@ -76,32 +76,32 @@
       "stop_time": "08:00:00",
       "start_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       },
       "stop_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       }
     },
     {
       "day": "Tuesday",
-      "start_time": "19:20:00",
+      "start_time": "20:00:00",
       "stop_time": "23:59:59",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     }
   ],
@@ -111,16 +111,16 @@
       "start_time": "00:00:00",
       "stop_time": "07:00:00",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     },
     {
@@ -129,32 +129,32 @@
       "stop_time": "08:00:00",
       "start_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       },
       "stop_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       }
     },
     {
       "day": "Wednesday",
-      "start_time": "19:20:00",
+      "start_time": "20:00:00",
       "stop_time": "23:59:59",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     }
   ],
@@ -164,16 +164,16 @@
       "start_time": "00:00:00",
       "stop_time": "07:00:00",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     },
     {
@@ -182,32 +182,32 @@
       "stop_time": "08:00:00",
       "start_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       },
       "stop_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       }
     },
     {
       "day": "Thursday",
-      "start_time": "19:20:00",
+      "start_time": "20:00:00",
       "stop_time": "23:59:59",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     }
   ],
@@ -217,16 +217,16 @@
       "start_time": "00:00:00",
       "stop_time": "07:00:00",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     },
     {
@@ -235,32 +235,32 @@
       "stop_time": "08:00:00",
       "start_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       },
       "stop_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       }
     },
     {
       "day": "Friday",
-      "start_time": "19:20:00",
+      "start_time": "20:00:00",
       "stop_time": "23:59:59",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     }
   ],
@@ -270,16 +270,16 @@
       "start_time": "00:00:00",
       "stop_time": "07:30:00",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     },
     {
@@ -288,32 +288,32 @@
       "stop_time": "08:30:00",
       "start_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       },
       "stop_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       }
     },
     {
       "day": "Saturday",
-      "start_time": "19:20:00",
+      "start_time": "20:00:00",
       "stop_time": "23:59:59",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     }
   ],
@@ -323,16 +323,16 @@
       "start_time": "00:00:00",
       "stop_time": "07:30:00",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     },
     {
@@ -341,32 +341,32 @@
       "stop_time": "08:30:00",
       "start_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       },
       "stop_color": {
         "r": 0,
-        "g": 255,
-        "b": 106,
-        "brightness": 0.2
+        "g": 120,
+        "b": 0,
+        "brightness": 0.05
       }
     },
     {
       "day": "Sunday",
-      "start_time": "19:20:00",
+      "start_time": "20:00:00",
       "stop_time": "23:59:59",
       "start_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       },
       "stop_color": {
-        "r": 255,
+        "r": 120,
         "g": 0,
-        "b": 60,
-        "brightness": 0.03
+        "b": 0,
+        "brightness": 0.02
       }
     }
   ]
