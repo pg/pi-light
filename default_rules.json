@@ -3,7 +3,7 @@
     {
       "day": "Monday",
       "start_time": "00:00:00",
-      "stop_time": "07:00:00",
+      "stop_time": "07:15:00",
       "start_color": {
         "r": 120,
         "g": 0,
@@ -19,8 +19,8 @@
     },
     {
       "day": "Monday",
-      "start_time": "07:00:01",
-      "stop_time": "08:00:00",
+      "start_time": "07:15:01",
+      "stop_time": "08:30:00",
       "start_color": {
         "r": 0,
         "g": 120,
@@ -36,7 +36,7 @@
     },
     {
       "day": "Monday",
-      "start_time": "20:00:00",
+      "start_time": "19:30:00",
       "stop_time": "23:59:59",
       "start_color": {
         "r": 120,
@@ -56,7 +56,7 @@
     {
       "day": "Tuesday",
       "start_time": "00:00:00",
-      "stop_time": "07:00:00",
+      "stop_time": "07:15:00",
       "start_color": {
         "r": 120,
         "g": 0,
@@ -72,8 +72,8 @@
     },
     {
       "day": "Tuesday",
-      "start_time": "07:00:01",
-      "stop_time": "08:00:00",
+      "start_time": "07:15:01",
+      "stop_time": "08:30:00",
       "start_color": {
         "r": 0,
         "g": 120,
@@ -89,7 +89,7 @@
     },
     {
       "day": "Tuesday",
-      "start_time": "20:00:00",
+      "start_time": "19:30:00",
       "stop_time": "23:59:59",
       "start_color": {
         "r": 120,
@@ -109,7 +109,7 @@
     {
       "day": "Wednesday",
       "start_time": "00:00:00",
-      "stop_time": "07:00:00",
+      "stop_time": "07:15:00",
       "start_color": {
         "r": 120,
         "g": 0,
@@ -125,8 +125,8 @@
     },
     {
       "day": "Wednesday",
-      "start_time": "07:00:01",
-      "stop_time": "08:00:00",
+      "start_time": "07:15:01",
+      "stop_time": "08:30:00",
       "start_color": {
         "r": 0,
         "g": 120,
@@ -142,7 +142,7 @@
     },
     {
       "day": "Wednesday",
-      "start_time": "20:00:00",
+      "start_time": "19:30:00",
       "stop_time": "23:59:59",
       "start_color": {
         "r": 120,
@@ -162,7 +162,7 @@
     {
       "day": "Thursday",
       "start_time": "00:00:00",
-      "stop_time": "07:00:00",
+      "stop_time": "07:15:00",
       "start_color": {
         "r": 120,
         "g": 0,
@@ -178,8 +178,8 @@
     },
     {
       "day": "Thursday",
-      "start_time": "07:00:01",
-      "stop_time": "08:00:00",
+      "start_time": "07:15:01",
+      "stop_time": "08:30:00",
       "start_color": {
         "r": 0,
         "g": 120,
@@ -195,7 +195,7 @@
     },
     {
       "day": "Thursday",
-      "start_time": "20:00:00",
+      "start_time": "19:30:00",
       "stop_time": "23:59:59",
       "start_color": {
         "r": 120,
@@ -215,7 +215,7 @@
     {
       "day": "Friday",
       "start_time": "00:00:00",
-      "stop_time": "07:00:00",
+      "stop_time": "07:15:00",
       "start_color": {
         "r": 120,
         "g": 0,
@@ -231,8 +231,8 @@
     },
     {
       "day": "Friday",
-      "start_time": "07:00:01",
-      "stop_time": "08:00:00",
+      "start_time": "07:15:01",
+      "stop_time": "08:30:00",
       "start_color": {
         "r": 0,
         "g": 120,
@@ -248,7 +248,7 @@
     },
     {
       "day": "Friday",
-      "start_time": "20:00:00",
+      "start_time": "19:30:00",
       "stop_time": "23:59:59",
       "start_color": {
         "r": 120,
@@ -301,7 +301,7 @@
     },
     {
       "day": "Saturday",
-      "start_time": "20:00:00",
+      "start_time": "19:30:00",
       "stop_time": "23:59:59",
       "start_color": {
         "r": 120,
@@ -354,7 +354,7 @@
     },
     {
       "day": "Sunday",
-      "start_time": "20:00:00",
+      "start_time": "19:30:00",
       "stop_time": "23:59:59",
       "start_color": {
         "r": 120,
